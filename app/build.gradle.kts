@@ -15,6 +15,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true // Enable support on older devices
     }
 
     buildTypes {
@@ -36,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.volley) // added
+    implementation(libs.gson) // added
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
