@@ -1,4 +1,4 @@
-package edu.bhcc.cho.noteserver.ui.document
+package edu.bhcc.cho.hocusfocustodo.ui.document
 
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +10,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import edu.bhcc.cho.noteserver.R
-import edu.bhcc.cho.noteserver.data.network.DocumentApiService
-import edu.bhcc.cho.noteserver.utils.SessionManager
+import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.data.network.DocumentApiService
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 
 // Resolve View and ViewGroup ambiguity
 import android.view.View as AndroidView

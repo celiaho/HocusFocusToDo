@@ -8,12 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import edu.bhcc.cho.noteserver.R
-import edu.bhcc.cho.noteserver.data.model.LoginRequest
-import edu.bhcc.cho.noteserver.data.network.AuthApiService
-import edu.bhcc.cho.noteserver.ui.document.DocumentManagementActivity
-import edu.bhcc.cho.noteserver.utils.JwtUtils
-import edu.bhcc.cho.noteserver.utils.SessionManager
+import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.data.model.LoginRequest
+import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
+import edu.bhcc.cho.hocusfocustodo.ui.document.DocumentManagementActivity
+import edu.bhcc.cho.hocusfocustodo.utils.JwtUtils
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import java.time.Instant
 
 class LoginActivity : AppCompatActivity() {

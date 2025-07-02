@@ -1,14 +1,14 @@
-package edu.bhcc.cho.noteserver.ui.launcher
+package edu.bhcc.cho.hocusfocustodo.ui.launcher
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android_capstone_to_do_app.R
-import edu.bhcc.cho.noteserver.ui.auth.LoginActivity
-import edu.bhcc.cho.noteserver.ui.document.DocumentManagementActivity
-import com.example.android_capstone_to_do_app.utils.JwtUtils
-import com.example.android_capstone_to_do_app.utils.SessionManager
+import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.ui.auth.LoginActivity
+import edu.bhcc.cho.hocusfocustodo.ui.document.DocumentManagementActivity
+import edu.bhcc.cho.hocusfocustodo.utils.JwtUtils
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import java.time.Instant
 
 /**

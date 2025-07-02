@@ -1,4 +1,4 @@
-package edu.bhcc.cho.noteserver.ui.document
+package edu.bhcc.cho.hocusfocustodo.ui.document
 
 import android.util.Log
 import android.content.Context
@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import edu.bhcc.cho.noteserver.R
-import edu.bhcc.cho.noteserver.data.model.Document
-import edu.bhcc.cho.noteserver.data.network.DocumentApiService
-import edu.bhcc.cho.noteserver.utils.SessionManager
+import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.data.model.Document
+import edu.bhcc.cho.hocusfocustodo.data.network.DocumentApiService
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 
 /**
  * Displays a list of Document items in a RecyclerView using item_document_list_tab.xml.

@@ -1,4 +1,4 @@
-package edu.bhcc.cho.noteserver.data.network
+package edu.bhcc.cho.hocusfocustodo.data.network
 
 import android.content.Context
 import android.util.Log
@@ -6,10 +6,10 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
-import edu.bhcc.cho.noteserver.data.model.LoginRequest
-import edu.bhcc.cho.noteserver.data.model.SignupRequest
-import edu.bhcc.cho.noteserver.utils.SessionManager
-import edu.bhcc.cho.noteserver.utils.VolleySingleton
+import edu.bhcc.cho.hocusfocustodo.data.model.LoginRequest
+import edu.bhcc.cho.hocusfocustodo.data.model.SignupRequest
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
+import edu.bhcc.cho.hocusfocustodo.utils.VolleySingleton
 import org.json.JSONObject
 
 class AuthApiService(private val context: Context) {

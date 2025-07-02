@@ -1,4 +1,4 @@
-package edu.bhcc.cho.noteserver.ui.auth
+package edu.bhcc.cho.hocusfocustodo.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,9 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import edu.bhcc.cho.noteserver.R
-import edu.bhcc.cho.noteserver.data.model.SignupRequest
-import edu.bhcc.cho.noteserver.data.network.AuthApiService
+import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.data.model.SignupRequest
+import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var backRedirect: TextView

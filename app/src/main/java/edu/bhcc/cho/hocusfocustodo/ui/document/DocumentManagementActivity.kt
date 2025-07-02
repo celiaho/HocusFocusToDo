@@ -1,4 +1,4 @@
-package edu.bhcc.cho.noteserver.ui.document
+package edu.bhcc.cho.hocusfocustodo.ui.document
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,12 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import edu.bhcc.cho.noteserver.R
-import edu.bhcc.cho.noteserver.utils.SessionManager
-import edu.bhcc.cho.noteserver.data.network.DocumentApiService
-import edu.bhcc.cho.noteserver.data.model.Document
-import edu.bhcc.cho.noteserver.ui.auth.LoginActivity
-import edu.bhcc.cho.noteserver.ui.settings.SettingsActivity
+import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
+import edu.bhcc.cho.hocusfocustodo.data.network.DocumentApiService
+import edu.bhcc.cho.hocusfocustodo.data.model.Document
+import edu.bhcc.cho.hocusfocustodo.ui.auth.LoginActivity
+import edu.bhcc.cho.hocusfocustodo.ui.settings.SettingsActivity
 
 class DocumentManagementActivity : AppCompatActivity() {
     private val editDocLauncher = registerForActivityResult(
