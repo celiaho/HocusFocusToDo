@@ -11,7 +11,7 @@ import edu.bhcc.cho.hocusfocustodo.data.model.SignupRequest
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
 
 class SignupActivity : AppCompatActivity() {
-    private lateinit var backRedirect: TextView
+//    private lateinit var backRedirect: TextView
     private lateinit var firstNameEditText: EditText
     private lateinit var lastNameEditText: EditText
     private lateinit var emailEditText: EditText
@@ -26,7 +26,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
 
         // Initialize views
-        backRedirect = findViewById<TextView>(R.id.signup_back)
+//        backRedirect = findViewById<TextView>(R.id.signup_back)
         firstNameEditText = findViewById(R.id.signup_first_name)
         lastNameEditText = findViewById(R.id.signup_last_name)
         emailEditText = findViewById(R.id.signup_email)
@@ -40,8 +40,8 @@ class SignupActivity : AppCompatActivity() {
 
         Log.d("---SIGNUP_PAGE_LOADED", "---SIGNUP_PAGE_LOADED")
 
-        // "< Back" link to LoginActivity
-       backRedirect.setOnClickListener { finish() } // return to Login
+//        // "< Back" link to LoginActivity
+//       backRedirect.setOnClickListener { finish() } // return to Login
 
         // Navigate back to LoginActivity
         loginRedirect.setOnClickListener {
@@ -56,6 +56,10 @@ class SignupActivity : AppCompatActivity() {
             val lastName = lastNameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString()
+
+            ///////////
+            // INSERT CONFIRM PASSWORD CODE HERE
+            ///////////
 
             // Basic validation
             if (email.isBlank() || password.isBlank() || firstName.isBlank() || lastName.isBlank()) {
