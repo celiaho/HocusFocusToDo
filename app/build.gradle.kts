@@ -40,7 +40,6 @@ android {
 dependencies {
     implementation(libs.volley) // added
     implementation(libs.gson) // added
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

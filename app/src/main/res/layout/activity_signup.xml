@@ -7,44 +7,50 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- Top wave image -->
-    <ImageView
-        android:id="@+id/signup_wave"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_green_background_vector"
-        android:contentDescription="@string/app_name" />
 
-    <!-- Scrollable form -->
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="24dp">
+        android:layout_height="wrap_content"
+        android:translationY="-353dp"
+        android:maxHeight="128dp">
+
+        <include
+            layout="@layout/vector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:layout_marginTop="-400dp">
 
             <!-- Title -->
             <TextView
+                style="@style/ScreenTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign up"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:textColor="@color/dark_gray"
-                android:layout_marginBottom="16dp" />
+                android:text="Sign up"/>
+
+            <!-- Error message -->
+            <TextView
+                style="@style/ErrorText"
+                android:id="@+id/signup_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Error text here"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible" />
 
             <!-- Email -->
             <TextView
+                style="@style/InputLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp" />
+                android:text="Email"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,18 +63,16 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_email"
-                    app:tint="@color/green" />
+                    android:src="@drawable/ic_email"/>
 
                 <EditText
+                    style="@style/TextInputLayoutStyle"
                     android:id="@+id/signup_email"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:inputType="textEmailAddress"
                     android:hint="demo@email.com"
-                    android:textColor="@color/dark_gray"
-                    android:background="@android:color/transparent"
                     android:paddingStart="8dp" />
             </LinearLayout>
 
@@ -92,7 +96,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/ic_user"
                     app:tint="@color/light_gray" />
 
                 <EditText
@@ -127,7 +131,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/ic_user"
                     app:tint="@color/light_gray" />
 
                 <EditText
@@ -269,5 +273,4 @@
                 android:layout_gravity="center" />
 
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>
