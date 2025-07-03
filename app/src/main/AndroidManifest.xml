@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-package="edu.bhcc.cho.hocusfocustodo">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="edu.bhcc.cho.hocusfocustodo">
 
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
-<application
-    android:theme="@style/Theme.HocusFocus"
-    android:label="@string/app_name"
-    android:allowBackup="true"
-    android:dataExtractionRules="@xml/data_extraction_rules"
-    android:fullBackupContent="@xml/backup_rules"
-    android:icon="@mipmap/ic_launcher"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:usesCleartextTraffic="true"
-    tools:targetApi="31">
+    <application
+        android:theme="@style/Theme.HocusFocus"
+        android:label="@string/app_name"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
 
-<!--    <activity-->
-<!--        android:name=".ui.document.DocumentManagementActivity" />-->
-<!--    <activity-->
-<!--        android:name=".ui.document.DocumentActivity"-->
-<!--        android:windowSoftInputMode="adjustResize"/>-->
-<!--    <activity-->
-<!--        android:name=".ui.document.DocumentSharePopupActivity"-->
-<!--        android:theme="@style/Theme.GOTTNotes.PopupDialog"/>-->
-    <activity
-        android:name=".ui.auth.SignupActivity"
-        android:windowSoftInputMode="adjustResize"/>
-    <activity
-        android:name=".ui.auth.PasswordResetActivity"
-        android:windowSoftInputMode="adjustResize"/>
-    <activity
-        android:name=".ui.auth.PasswordForgotActivity"
-        android:windowSoftInputMode="adjustResize"/>
-    <activity
-        android:name=".ui.auth.LoginActivity"
-        android:windowSoftInputMode="adjustResize"/>
-    <activity
-        android:name=".ui.launcher.LauncherActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </intent-filter>
-    </activity>
-</application>
+        <!-- AUTH SCREENS -->
+        <activity
+            android:name=".ui.auth.SignupActivity"
+            android:theme="@style/Theme.HocusFocus.Auth"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.auth.PasswordResetActivity"
+            android:theme="@style/Theme.HocusFocus.Auth"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.auth.PasswordForgotActivity"
+            android:theme="@style/Theme.HocusFocus.Auth"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:theme="@style/Theme.HocusFocus.Auth"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- TASK OVERVIEW SCREEN -->
+        <activity
+            android:name=".ui.task.TaskOverviewActivity"
+            android:theme="@style/Theme.HocusFocus" />
+
+        <!-- LAUNCHER -->
+        <activity
+            android:name=".ui.launcher.LauncherActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
 
 </manifest>

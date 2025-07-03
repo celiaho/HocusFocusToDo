@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Core brand colors -->
+    <color name="auth_green">#71d19a</color> <!-- Auth green, auth links -->
+    <color name="green">#71d099</color> <!-- Quadrant I -->
+    <color name="blue">#4b98fd</color> <!-- Quadrant II -->
+    <color name="orange">#ffb452</color> <!-- Quadrant III -->
+    <color name="red">#f86060</color> <!-- Quadrant IV -->
+
+    <!-- Grayscale palette -->
+    <color name="white">#FFFFFF</color>
+    <color name="off_white">#F8F8FF</color> <!-- Auth background -->
+    <color name="light_gray">#BDBDBD</color> <!-- Input hints, unfilled field outlines, unfilled input icons, unclicked show password icon -->
+    <color name="medium_gray">#616161</color> <!-- Subtitles, body text, labels, input text, show password icon (active/unmasked) -->
+    <color name="dark_gray">#424242</color> <!-- Screen titles, quadrant titles -->
+
+    <!-- Feedback / alert colors -->
+    <color name="error_red">#FF0101</color> <!-- Error messages, error state -->
+
+    <!-- Background / supporting colors -->
+    <color name="eisen_canvas">#f6faff</color> <!-- Suggested background for Task Overview nav bar -->
+
 </resources>

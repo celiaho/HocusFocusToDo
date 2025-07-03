@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screen title -->
+    <style name="ScreenTitle">
+        <item name="android:textSize">38sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Input label -->
+    <style name="InputLabel">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/medium_gray</item>
+    </style>
+
+    <!-- Error text -->
+    <style name="ErrorText">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/error_red</item>
+    </style>
+
+    <!-- Auth link -->
+    <style name="AuthLinkText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/auth_green</item>
+    </style>
+
+    <!-- Secondary prompt -->
+    <style name="SecondaryPromptText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/medium_gray</item>
+    </style>
+
+    <!-- Primary button -->
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/off_white</item>
+        <item name="backgroundTint">@color/auth_green</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- TextInputLayout style -->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">none</item>
+        <item name="boxStrokeColor">@color/light_gray</item>
+        <item name="helperTextTextColor">@color/medium_gray</item>
+        <item name="errorTextColor">@color/error_red</item>
+    </style>
+
+    <!-- Quadrant title -->
+    <style name="QuadrantTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <!-- Centralized input text appearance -->
+    <style name="AppInputTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/medium_gray</item>
+        <item name="android:textColorHint">@color/light_gray</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Task text -->
+    <style name="TaskText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/medium_gray</item>
+    </style>
+
+    <!-- Task due date -->
+    <style name="TaskDueDate">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- Task delete button -->
+    <style name="TaskDeleteButton">
+        <item name="android:tint">@color/medium_gray</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+</resources>

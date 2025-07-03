@@ -1,9 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.HocusFocus" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- Base app theme: Task Overview + post-auth screens -->
+    <style name="Theme.HocusFocus" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Task Overview uses blue focus underline -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorOnPrimary">@color/white</item> <!-- What is this used for? -->
+<!--        <item name="colorSecondary">@color/blue</item>-->
+        <item name="colorError">@color/error_red</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/off_white</item>
+
+        <!-- Default input style -->
+        <item name="textInputStyle">@style/TextInputLayoutStyle</item>
+
+        <!-- Optional toolbar style or other overrides -->
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
+
+        <!-- Prevent forced dark mode on newer devices -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
-    <style name="Theme.HocusFocus" parent="Base.Theme.HocusFocus" />
+    <!-- Auth pages theme: auth_green focus underline -->
+    <style name="Theme.HocusFocus.Auth" parent="Theme.HocusFocus">
+        <item name="colorPrimary">@color/auth_green</item>
+    </style>
+
 </resources>
