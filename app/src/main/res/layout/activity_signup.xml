@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Top wave image -->
+    <ImageView
+        android:id="@+id/signup_wave"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_green_background_vector"
+        android:contentDescription="@string/app_name" />
+
+    <!-- Scrollable form -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_gray"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_input"
+                android:paddingStart="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_email"
+                    app:tint="@color/green" />
+
+                <EditText
+                    android:id="@+id/signup_email"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:inputType="textEmailAddress"
+                    android:hint="demo@email.com"
+                    android:textColor="@color/dark_gray"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="8dp" />
+            </LinearLayout>
+
+            <!-- First Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_input"
+                android:paddingStart="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/light_gray" />
+
+                <EditText
+                    android:id="@+id/signup_first_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:hint="Enter your first name"
+                    android:textColor="@color/dark_gray"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="8dp" />
+            </LinearLayout>
+
+            <!-- Last Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_input"
+                android:paddingStart="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/light_gray" />
+
+                <EditText
+                    android:id="@+id/signup_last_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:hint="Enter your last name"
+                    android:textColor="@color/dark_gray"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="8dp" />
+            </LinearLayout>
+
+            <!-- Password -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_input"
+                android:paddingStart="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_lock"
+                    app:tint="@color/green" />
+
+                <EditText
+                    android:id="@+id/signup_password"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:hint="Enter your password"
+                    android:textColor="@color/dark_gray"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="8dp" />
+
+                <ImageView
+                    android:id="@+id/toggle_password"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_visibility"
+                    app:tint="@color/light_gray" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/password_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password must be at least 8 letters"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:layout_marginTop="2dp" />
+
+            <!-- Confirm Password -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_input"
+                android:paddingStart="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_lock"
+                    app:tint="@color/green" />
+
+                <EditText
+                    android:id="@+id/signup_confirm_password"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:hint="Confirm your password"
+                    android:textColor="@color/dark_gray"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="8dp" />
+
+                <ImageView
+                    android:id="@+id/toggle_confirm_password"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_visibility"
+                    app:tint="@color/light_gray" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/confirm_password_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirmed password must match"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:layout_marginTop="2dp" />
+
+            <!-- Create Account button -->
+            <Button
+                android:id="@+id/signup_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Create Account"
+                android:textSize="18sp"
+                android:backgroundTint="@color/green"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Already have account link -->
+            <TextView
+                android:id="@+id/signup_login_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Login"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
