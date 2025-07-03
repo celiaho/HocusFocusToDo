@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!-- DRAFT CODE V.2 THAT USES UPDATED STYLES.XML AND ITEM_TASK.XML BUT DOESN'T DISPLAY CORRECTLY -->
-<!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<LinearLayout-->
 <!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    xmlns:tools="http://schemas.android.com/tools"-->
@@ -185,7 +186,6 @@
 <!--</LinearLayout>-->
 
 <!-- DRAFT CODE V.1 THAT WORKS -->
-    <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -217,7 +217,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="I. URGENT & IMPORTANT - DO NOW"
+                    android:text="I. URGENT &amp; IMPORTANT - DO NOW"
                     android:textColor="@color/green"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -253,7 +253,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="II. URGENT & NOT IMPORTANT - DECIDE WHEN TO SCHEDULE"
+                    android:text="II. URGENT &amp; NOT IMPORTANT - DECIDE WHEN TO SCHEDULE"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -289,7 +289,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="III. NOT URGENT & IMPORTANT - DELEGATE"
+                    android:text="III. NOT URGENT &amp; IMPORTANT - DELEGATE"
                     android:textColor="@color/orange"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -325,7 +325,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="IV. NOT URGENT & NOT IMPORTANT - DELETE"
+                    android:text="IV. NOT URGENT &amp; NOT IMPORTANT - DELETE"
                     android:textColor="@color/red"
                 android:textSize="20sp"
                 android:textStyle="bold"
