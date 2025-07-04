@@ -11,11 +11,12 @@
     <style name="InputLabel">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/medium_gray</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Error text -->
     <style name="ErrorText">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/error_red</item>
     </style>
 
@@ -42,11 +43,12 @@
     </style>
 
     <!-- TextInputLayout style -->
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundMode">none</item>
-        <item name="boxStrokeColor">@color/light_gray</item>
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout">
         <item name="helperTextTextColor">@color/medium_gray</item>
         <item name="errorTextColor">@color/error_red</item>
+        <item name="boxStrokeColor">@color/light_gray</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
     </style>
 
     <!-- Quadrant title -->
