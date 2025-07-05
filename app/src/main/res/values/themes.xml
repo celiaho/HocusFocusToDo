@@ -20,6 +20,7 @@
 
         <!-- Prevent forced dark mode on newer devices -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
     </style>
 
     <!-- Auth pages theme: auth_green focus underline -->
