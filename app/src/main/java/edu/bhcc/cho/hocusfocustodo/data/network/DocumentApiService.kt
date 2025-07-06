@@ -5,7 +5,7 @@ import android.util.Log
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
-import edu.bhcc.cho.hocusfocustodo.data.model.Document
+import edu.bhcc.cho.hocusfocustodo.Document
 import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import edu.bhcc.cho.hocusfocustodo.utils.VolleySingleton
 import org.json.JSONArray

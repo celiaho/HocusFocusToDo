@@ -78,7 +78,7 @@
                 android:drawableStart="@drawable/ic_material_email"
                 android:drawableTint="@color/light_gray"
                 android:drawablePadding="8dp"
-                android:hint="demo@email.com" />
+                android:hint="Enter your email" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- First Name -->
