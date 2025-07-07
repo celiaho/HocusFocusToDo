@@ -47,15 +47,35 @@
         <item name="cornerRadius">8dp</item>
     </style>
 
-    <!-- TextInputLayout style -->
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout">
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <!-- Basic Text Colors -->
         <item name="helperTextTextColor">@color/medium_gray</item>
         <item name="errorTextColor">@color/error_red</item>
-        <item name="boxStrokeColor">@color/light_gray</item>
-        <item name="boxStrokeWidth">2dp</item>
-        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="hintTextColor">@color/medium_gray</item>
+        <item name="android:textColorHint">@color/medium_gray</item>
+
+        <!-- Underline Color and Control -->
+        <item name="boxStrokeColor">@android:color/holo_blue_dark</item> <!-- DEBUGGING -->
+
+        <!-- Make the filled box background transparent -->
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+
+        <item name="boxStrokeWidth">0dp</item> <!-- No surrounding box stroke -->
+        <item name="boxStrokeWidthFocused">2dp</item> <!-- Underline thickness when focused -->
+
         <item name="fontFamily">@font/rubik_regular</item>
+
+        <!-- Attempt to force underline defaults -->
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout.Underline</item>
     </style>
+
+    <!-- This overlay will try to ensure underline properties are set for FilledBox -->
+    <style name="ThemeOverlay.App.TextInputLayout.Underline" parent="">
+        <item name="colorPrimary">@android:color/holo_blue_dark</item> <!-- Or your desired focused color -->
+        <item name="colorOnSurface">@android:color/holo_blue_dark</item> <!-- Or your desired normal underline color -->
+
+    </style>
+
 
     <!-- Quadrant title -->
     <style name="QuadrantTitle">
@@ -69,6 +89,7 @@
         <item name="android:textColor">@color/medium_gray</item>
         <item name="android:textColorHint">@color/light_gray</item>
         <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/rubik_regular</item>
     </style>
 
     <!-- Task text -->

@@ -78,7 +78,10 @@
                 android:drawableStart="@drawable/ic_material_email"
                 android:drawableTint="@color/light_gray"
                 android:drawablePadding="8dp"
-                android:hint="Enter your email" />
+                android:hint="Enter your email"
+                android:paddingTop="16dp"
+            android:paddingBottom="12dp" /> <!-- Also adjust for balanced feel -->
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password -->
