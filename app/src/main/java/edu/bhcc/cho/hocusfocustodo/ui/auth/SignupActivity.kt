@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import edu.bhcc.cho.hocusfocustodo.R
-import edu.bhcc.cho.hocusfocustodo.SignupRequest
+import edu.bhcc.cho.hocusfocustodo.data.model.SignupRequest
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
 
 class SignupActivity : AppCompatActivity() {

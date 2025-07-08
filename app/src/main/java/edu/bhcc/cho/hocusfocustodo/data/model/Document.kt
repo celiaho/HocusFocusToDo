@@ -1,4 +1,4 @@
-package edu.bhcc.cho.hocusfocustodo
+package edu.bhcc.cho.hocusfocustodo.data.model
 
 import com.google.gson.annotations.SerializedName
 import org.json.JSONObject

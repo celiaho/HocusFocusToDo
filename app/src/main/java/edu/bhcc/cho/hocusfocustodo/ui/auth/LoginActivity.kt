@@ -9,9 +9,9 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import edu.bhcc.cho.hocusfocustodo.R
-import edu.bhcc.cho.hocusfocustodo.LoginRequest
+import edu.bhcc.cho.hocusfocustodo.data.model.LoginRequest
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
-import edu.bhcc.cho.hocusfocustodo.ui.document.DocumentManagementActivity
+import edu.bhcc.cho.hocusfocustodo.ui.task.TaskOverviewActivity
 import edu.bhcc.cho.hocusfocustodo.utils.JwtUtils
 import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import java.time.Instant
@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("---JWT_USER_ID", "---TOKEN sub (userId) = ${JwtUtils.getUserId(token) ?: "null"}")
 
                     errorTextView.visibility = View.GONE
-                    startActivity(Intent(this, DocumentManagementActivity::class.java))
+                    startActivity(Intent(this, TaskOverviewActivity::class.java))
                     finish()
                 },
                 onError = {
