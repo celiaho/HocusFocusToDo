@@ -45,7 +45,7 @@
                 android:layout_marginTop="2dp"/>
         </LinearLayout>
 
-        <!-- Error message (if you decide to keep it for API general errors) -->
+        <!-- Error message -->
         <TextView
             style="@style/ErrorText"
             android:id="@+id/signup_error"
@@ -67,7 +67,8 @@
             android:id="@+id/signup_email_container"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_email"
@@ -93,7 +94,8 @@
             android:id="@+id/signup_first_name_container"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_first_name"
@@ -119,7 +121,8 @@
             android:id="@+id/signup_last_name_container"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_last_name"
@@ -147,7 +150,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/light_gray">
+            app:endIconTint="@color/light_gray"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_password"
@@ -175,7 +179,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/light_gray">
+            app:endIconTint="@color/light_gray"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_confirm_password"
@@ -209,7 +214,7 @@
             android:textSize="14sp"
             android:textColor="@color/medium_gray"
             android:layout_gravity="center"
+            android:fontFamily="@font/rubik_regular"
             android:text="Already have an account? Log in" />
-
     </LinearLayout>
 </LinearLayout>

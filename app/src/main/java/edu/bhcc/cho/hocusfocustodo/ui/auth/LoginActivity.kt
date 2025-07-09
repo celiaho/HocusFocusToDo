@@ -2,12 +2,14 @@ package edu.bhcc.cho.hocusfocustodo.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat // 🌟 NEW
 import edu.bhcc.cho.hocusfocustodo.R
 import edu.bhcc.cho.hocusfocustodo.data.model.LoginRequest
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
@@ -49,6 +51,20 @@ class LoginActivity : AppCompatActivity() {
 
         Log.d("---LOGIN_PAGE_LOADED", "---LOGIN_PAGE_LOADED")
 
+        // 🌟 Make only "Sign Up" green
+        val fullText = "Don't have an account? Sign Up"
+        val signUpText = "Sign Up"
+        val spannable = SpannableString(fullText)
+        val start = fullText.indexOf(signUpText)
+        val end = start + signUpText.length
+        spannable.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.auth_green)),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        signupLink.text = spannable
+
         // Handle login button click
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
@@ -69,7 +85,6 @@ class LoginActivity : AppCompatActivity() {
                     val tokenExpirationTime = JwtUtils.getExpirationTime(token.toString())
                     val tokenIssuedAtTime = JwtUtils.getIssuedAtTime(token.toString())
 
-                    // Save session (convert exp to millis)
                     sessionManager.saveSession(
                         token,
                         JwtUtils.getUserId(token) ?: "",
@@ -101,7 +116,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, PasswordForgotActivity::class.java)
             intent.putExtra("EMAIL", email)
             startActivity(intent)
-            // Do not call finish() here — let the user return to login if desired
         }
 
         // Handle "Sign up" link

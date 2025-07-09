@@ -36,13 +36,13 @@
                 style="@style/ScreenTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign in"/>
+                android:text="Sign in" />
 
             <View
                 android:layout_width="70dp"
                 android:layout_height="3dp"
                 android:background="@color/auth_green"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="2dp" />
         </LinearLayout>
 
         <!-- Error message -->
@@ -67,7 +67,8 @@
             android:id="@+id/login_email_container"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_email"
@@ -80,8 +81,7 @@
                 android:drawablePadding="8dp"
                 android:hint="Enter your email"
                 android:paddingTop="16dp"
-            android:paddingBottom="12dp" /> <!-- Also adjust for balanced feel -->
-
+                android:paddingBottom="12dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password -->
@@ -98,7 +98,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/light_gray">
+            app:endIconTint="@color/light_gray"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_password"
@@ -137,14 +138,12 @@
 
         <!-- Sign up link -->
         <TextView
-            android:fontFamily="@font/rubik_regular"
             android:id="@+id/login_signup_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/medium_gray"
             android:layout_gravity="center"
+            android:textSize="14sp"
+            android:fontFamily="@font/rubik_regular"
             android:text="Don’t have an account? Sign up" />
-
     </LinearLayout>
 </LinearLayout>
