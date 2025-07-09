@@ -25,6 +25,8 @@ replay_pid*
 
 # Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
 .kotlin/
-
-# Gradle files (added 7/2/25 to simplify GitHub sharing)
+# Gradle files (added 7/2/25 & 7/9/25 to simplify GitHub sharing)
 local.properties
+.gradle/
+build/
+*.lock
