@@ -28,4 +28,12 @@
         <item name="colorPrimary">@color/auth_green</item>
     </style>
 
+    <!-- Fast-splash launch theme -->
+    <style name="Theme.HocusFocus.Launcher" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
 </resources>

@@ -2,61 +2,57 @@ package edu.bhcc.cho.hocusfocustodo.ui.launcher
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import edu.bhcc.cho.hocusfocustodo.R
 import edu.bhcc.cho.hocusfocustodo.ui.auth.LoginActivity
-//import edu.bhcc.cho.hocusfocustodo.ui.document.DocumentManagementActivity
+import edu.bhcc.cho.hocusfocustodo.ui.task.TaskOverviewActivity
 import edu.bhcc.cho.hocusfocustodo.utils.JwtUtils
 import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import java.time.Instant
 
 /**
- * LauncherActivity serves as a splash screen that routes to the appropriate activity
- * depending on whether a valid JWT token is found in SharedPreferences.
+ * LauncherActivity shows a splash screen and routes to the login or main screen
+ * depending on the presence and validity of a JWT token.
  */
 class LauncherActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_launcher)
 
-        val sessionManager = SessionManager(this)
+        // Load splash layout
+        setContentView(R.layout.activity_launcher) // your splash screen layout
 
         Log.d("---SPLASH_PAGE_LOADED", "---SPLASH_PAGE_LOADED")
 
+        val sessionManager = SessionManager(this)
         val token = sessionManager.getToken()
         val currentTime = System.currentTimeMillis() / 1000
-        val tokenExpirationTime = JwtUtils.getExpirationTime(token.toString())
-        val tokenIssuedAtTime = JwtUtils.getIssuedAtTime(token.toString())
+        val tokenExpirationTime = JwtUtils.getExpirationTime(token.orEmpty())
+        val tokenIssuedAtTime = JwtUtils.getIssuedAtTime(token.orEmpty())
 
-        // Check token validity and route accordingly
-        if (token.isNullOrBlank()) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return
-        }
         val nextActivity = if (!token.isNullOrBlank() && !JwtUtils.isTokenExpired(token)) {
-            // Log valid token issue time, token expiration time, and current system time in readable format
+            // Log valid token times
             Log.d("---VALID_TOKEN_ISSUED", "---iat (readable) = ${Instant.ofEpochSecond(tokenIssuedAtTime ?: 0)}")
             Log.d("---VALID_TOKEN_EXPIRATION", "---exp (readable) = ${Instant.ofEpochSecond(tokenExpirationTime ?: 0)}")
             Log.d("---SYSTEM_TIME", "---now (readable) = ${Instant.ofEpochSecond(currentTime)}")
 
-            //// Go to DocumentManagementActivity - - TEMP CHANGE
-            LoginActivity::class.java
+            TaskOverviewActivity::class.java // <-- Change this when ready
         } else {
-            // Log invalid token issue time, token expiration time, and current system time in readable format
+            // Log invalid token times
             Log.d("---INVALID_TOKEN_ISSUED", "---iat (readable) = ${Instant.ofEpochSecond(tokenIssuedAtTime ?: 0)}")
             Log.d("---INVALID_TOKEN_EXPIRATION", "---exp (readable) = ${Instant.ofEpochSecond(tokenExpirationTime ?: 0)}")
             Log.d("---SYSTEM_TIME", "---now (readable) = ${Instant.ofEpochSecond(currentTime)}")
 
-            // Go to LoginActivity
             LoginActivity::class.java
         }
 
-        // Delay to show splash for ~1 second
-        window.decorView.postDelayed({
+        // Delay routing to allow splash screen to appear (~1.5s)
+        Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, nextActivity))
             finish()
-        }, 1000) // Delay in milliseconds
+        }, 1500)
     }
 }

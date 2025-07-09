@@ -42,6 +42,7 @@ class TaskOverviewActivity : AppCompatActivity() {
         bindViews()
         setupRecyclerViews()
         setupListeners()
+        populateDummyTasks()
     }
 
     private fun bindViews() {
@@ -150,5 +151,31 @@ class TaskOverviewActivity : AppCompatActivity() {
             "q4_nu_ni" -> adapterQ4
             else -> throw IllegalArgumentException("Unknown quadrant: $quadrant")
         }
+    }
+
+    private fun populateDummyTasks() {
+        val dummyQ1 = listOf(
+            Task(UUID.randomUUID().toString(), "Finish capstone", false, "q1_u_i"),
+            Task(UUID.randomUUID().toString(), "Submit demo video", true, "q1_u_i")
+        )
+        val dummyQ2 = listOf(
+            Task(UUID.randomUUID().toString(), "Buy snacks for group meeting", false, "q2_nu_i")
+        )
+        val dummyQ3 = listOf(
+            Task(UUID.randomUUID().toString(), "Ask Rider to update README", false, "q3_u_ni")
+        )
+        val dummyQ4 = listOf(
+            Task(UUID.randomUUID().toString(), "Rewatch cat video", false, "q4_nu_ni")
+        )
+
+        q1Tasks.addAll(dummyQ1)
+        q2Tasks.addAll(dummyQ2)
+        q3Tasks.addAll(dummyQ3)
+        q4Tasks.addAll(dummyQ4)
+
+        adapterQ1.notifyItemRangeInserted(0, dummyQ1.size)
+        adapterQ2.notifyItemRangeInserted(0, dummyQ2.size)
+        adapterQ3.notifyItemRangeInserted(0, dummyQ3.size)
+        adapterQ4.notifyItemRangeInserted(0, dummyQ4.size)
     }
 }
