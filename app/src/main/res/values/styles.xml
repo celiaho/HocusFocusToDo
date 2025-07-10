@@ -5,24 +5,30 @@
         <item name="android:textSize">38sp</item>
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/rubik_medium</item>
     </style>
 
     <!-- Input label -->
     <style name="InputLabel">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/medium_gray</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/rubik_medium</item>
     </style>
 
     <!-- Error text -->
     <style name="ErrorText">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/error_red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/rubik_medium</item>
     </style>
 
     <!-- Auth link -->
     <style name="AuthLinkText">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/auth_green</item>
+        <item name="fontFamily">@font/rubik_medium</item>
     </style>
 
     <!-- Secondary prompt -->
@@ -41,16 +47,40 @@
         <item name="cornerRadius">8dp</item>
     </style>
 
-    <!-- TextInputLayout style -->
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundMode">none</item>
-        <item name="boxStrokeColor">@color/light_gray</item>
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <!-- Basic Text Colors -->
         <item name="helperTextTextColor">@color/medium_gray</item>
         <item name="errorTextColor">@color/error_red</item>
+        <item name="hintTextColor">@color/medium_gray</item>
+        <item name="android:textColorHint">@color/medium_gray</item>
+
+        <!-- Underline Color and Control -->
+        <item name="boxStrokeColor">@android:color/holo_blue_dark</item> <!-- DEBUGGING -->
+
+        <!-- Make the filled box background transparent -->
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+
+        <item name="boxStrokeWidth">0dp</item> <!-- No surrounding box stroke -->
+        <item name="boxStrokeWidthFocused">2dp</item> <!-- Underline thickness when focused -->
+
+        <item name="fontFamily">@font/rubik_regular</item>
+
+        <!-- Attempt to force underline defaults -->
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout.Underline</item>
     </style>
+
+    <!-- This overlay will try to ensure underline properties are set for FilledBox -->
+    <style name="ThemeOverlay.App.TextInputLayout.Underline" parent="">
+        <item name="colorPrimary">@android:color/holo_blue_dark</item> <!-- Or your desired focused color -->
+        <item name="colorOnSurface">@android:color/holo_blue_dark</item> <!-- Or your desired normal underline color -->
+
+    </style>
+
 
     <!-- Quadrant title -->
     <style name="QuadrantTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginBottom">8dp</item>
@@ -61,6 +91,7 @@
         <item name="android:textColor">@color/medium_gray</item>
         <item name="android:textColorHint">@color/light_gray</item>
         <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/rubik_regular</item>
     </style>
 
     <!-- Task text -->

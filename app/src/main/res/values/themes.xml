@@ -20,11 +20,20 @@
 
         <!-- Prevent forced dark mode on newer devices -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
     </style>
 
     <!-- Auth pages theme: auth_green focus underline -->
     <style name="Theme.HocusFocus.Auth" parent="Theme.HocusFocus">
         <item name="colorPrimary">@color/auth_green</item>
     </style>
+
+    <!-- Fast-splash launch theme -->
+    <style name="Theme.HocusFocus.Launcher" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 
 </resources>

@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.data.model.Task
+import java.util.*
+
 
 class TaskOverviewActivity : AppCompatActivity() {
 
@@ -23,16 +26,17 @@ class TaskOverviewActivity : AppCompatActivity() {
 
     private lateinit var logoutButton: Button
 
-    // Example data models
-    private val q1Tasks = mutableListOf<String>()
-    private val q2Tasks = mutableListOf<String>()
-    private val q3Tasks = mutableListOf<String>()
-    private val q4Tasks = mutableListOf<String>()
 
-    private lateinit var adapterQ1: SimpleTaskAdapter
-    private lateinit var adapterQ2: SimpleTaskAdapter
-    private lateinit var adapterQ3: SimpleTaskAdapter
-    private lateinit var adapterQ4: SimpleTaskAdapter
+    private val q1Tasks = mutableListOf<Task>()
+    private val q2Tasks = mutableListOf<Task>()
+    private val q3Tasks = mutableListOf<Task>()
+    private val q4Tasks = mutableListOf<Task>()
+
+    private lateinit var adapterQ1: TaskAdapter
+    private lateinit var adapterQ2: TaskAdapter
+    private lateinit var adapterQ3: TaskAdapter
+    private lateinit var adapterQ4: TaskAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,8 @@ class TaskOverviewActivity : AppCompatActivity() {
         bindViews()
         setupRecyclerViews()
         setupListeners()
+        populateDummyTasks()
+
     }
 
     private fun bindViews() {
@@ -58,10 +64,12 @@ class TaskOverviewActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViews() {
-        adapterQ1 = SimpleTaskAdapter(q1Tasks)
-        adapterQ2 = SimpleTaskAdapter(q2Tasks)
-        adapterQ3 = SimpleTaskAdapter(q3Tasks)
-        adapterQ4 = SimpleTaskAdapter(q4Tasks)
+
+        adapterQ1 = TaskAdapter(q1Tasks, ::onDeleteTask, ::onToggleComplete)
+        adapterQ2 = TaskAdapter(q2Tasks, ::onDeleteTask, ::onToggleComplete)
+        adapterQ3 = TaskAdapter(q3Tasks, ::onDeleteTask, ::onToggleComplete)
+        adapterQ4 = TaskAdapter(q4Tasks, ::onDeleteTask, ::onToggleComplete)
+
 
         listQ1.layoutManager = LinearLayoutManager(this)
         listQ1.adapter = adapterQ1
@@ -79,47 +87,101 @@ class TaskOverviewActivity : AppCompatActivity() {
     private fun setupListeners() {
         logoutButton.setOnClickListener {
             Toast.makeText(this, "Logged out (placeholder)", Toast.LENGTH_SHORT).show()
-            // TODO: Add real logout logic
         }
 
-        inputQ1.setOnEditorActionListener { v, actionId, event ->
-            val text = inputQ1.text?.toString()?.trim()
-            if (!text.isNullOrEmpty()) {
-                q1Tasks.add(text)
-                adapterQ1.notifyItemInserted(q1Tasks.size - 1)
-                inputQ1.text = null
-            }
+        inputQ1.setOnEditorActionListener { _, _, _ ->
+            handleTaskInput(inputQ1, q1Tasks, adapterQ1, "q1_u_i")
             true
         }
 
-        inputQ2.setOnEditorActionListener { v, actionId, event ->
-            val text = inputQ2.text?.toString()?.trim()
-            if (!text.isNullOrEmpty()) {
-                q2Tasks.add(text)
-                adapterQ2.notifyItemInserted(q2Tasks.size - 1)
-                inputQ2.text = null
-            }
+        inputQ2.setOnEditorActionListener { _, _, _ ->
+            handleTaskInput(inputQ2, q2Tasks, adapterQ2, "q2_nu_i")
             true
         }
 
-        inputQ3.setOnEditorActionListener { v, actionId, event ->
-            val text = inputQ3.text?.toString()?.trim()
-            if (!text.isNullOrEmpty()) {
-                q3Tasks.add(text)
-                adapterQ3.notifyItemInserted(q3Tasks.size - 1)
-                inputQ3.text = null
-            }
+        inputQ3.setOnEditorActionListener { _, _, _ ->
+            handleTaskInput(inputQ3, q3Tasks, adapterQ3, "q3_u_ni")
             true
         }
 
-        inputQ4.setOnEditorActionListener { v, actionId, event ->
-            val text = inputQ4.text?.toString()?.trim()
-            if (!text.isNullOrEmpty()) {
-                q4Tasks.add(text)
-                adapterQ4.notifyItemInserted(q4Tasks.size - 1)
-                inputQ4.text = null
-            }
+        inputQ4.setOnEditorActionListener { _, _, _ ->
+            handleTaskInput(inputQ4, q4Tasks, adapterQ4, "q4_nu_ni")
             true
         }
+    }
+
+    private fun handleTaskInput(
+        inputField: TextInputEditText,
+        taskList: MutableList<Task>,
+        adapter: TaskAdapter,
+        quadrantCode: String
+    ) {
+        val text = inputField.text?.toString()?.trim()
+        if (!text.isNullOrEmpty()) {
+            val newTask = Task(
+                id = UUID.randomUUID().toString(),
+                text = text,
+                isCompleted = false,
+                quadrant = quadrantCode
+            )
+            taskList.add(newTask)
+            adapter.notifyItemInserted(taskList.size - 1)
+            inputField.text = null
+        }
+    }
+
+    private fun onDeleteTask(task: Task) {
+        val list = when (task.quadrant) {
+            "q1_u_i" -> q1Tasks
+            "q2_nu_i" -> q2Tasks
+            "q3_u_ni" -> q3Tasks
+            "q4_nu_ni" -> q4Tasks
+            else -> return
+        }
+        val index = list.indexOfFirst { it.id == task.id }
+        if (index != -1) {
+            list.removeAt(index)
+            getAdapterForQuadrant(task.quadrant).notifyItemRemoved(index)
+        }
+    }
+
+    private fun onToggleComplete(task: Task) {
+        // Optional: Save task completion state
+    }
+
+    private fun getAdapterForQuadrant(quadrant: String): TaskAdapter {
+        return when (quadrant) {
+            "q1_u_i" -> adapterQ1
+            "q2_nu_i" -> adapterQ2
+            "q3_u_ni" -> adapterQ3
+            "q4_nu_ni" -> adapterQ4
+            else -> throw IllegalArgumentException("Unknown quadrant: $quadrant")
+        }
+    }
+
+    private fun populateDummyTasks() {
+        val dummyQ1 = listOf(
+            Task(UUID.randomUUID().toString(), "Finish capstone", false, "q1_u_i"),
+            Task(UUID.randomUUID().toString(), "Submit demo video", true, "q1_u_i")
+        )
+        val dummyQ2 = listOf(
+            Task(UUID.randomUUID().toString(), "Buy snacks for group meeting", false, "q2_nu_i")
+        )
+        val dummyQ3 = listOf(
+            Task(UUID.randomUUID().toString(), "Ask Rider to update README", false, "q3_u_ni")
+        )
+        val dummyQ4 = listOf(
+            Task(UUID.randomUUID().toString(), "Rewatch cat video", false, "q4_nu_ni")
+        )
+
+        q1Tasks.addAll(dummyQ1)
+        q2Tasks.addAll(dummyQ2)
+        q3Tasks.addAll(dummyQ3)
+        q4Tasks.addAll(dummyQ4)
+
+        adapterQ1.notifyItemRangeInserted(0, dummyQ1.size)
+        adapterQ2.notifyItemRangeInserted(0, dummyQ2.size)
+        adapterQ3.notifyItemRangeInserted(0, dummyQ3.size)
+        adapterQ4.notifyItemRangeInserted(0, dummyQ4.size)
     }
 }
