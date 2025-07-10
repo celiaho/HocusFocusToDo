@@ -85,4 +85,12 @@ class SessionManager(private val context: Context) {
         docCache.edit { clear() } //// added line to ensure cache is cleared on logout from anywhere
 
     }
+
+    fun saveTaskDocumentId(id: String) {
+        prefs.edit().putString("taskDocumentId", id).apply()
+    }
+
+    fun getTaskDocumentId(): String? {
+        return prefs.getString("taskDocumentId", null)
+    }
 }
