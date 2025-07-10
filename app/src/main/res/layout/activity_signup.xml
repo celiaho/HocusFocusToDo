@@ -79,7 +79,9 @@
                 android:drawableStart="@drawable/ic_material_email"
                 android:drawableTint="@color/light_gray"
                 android:drawablePadding="8dp"
-                android:hint="Enter your email" />
+                android:hint="Enter your email"
+                android:paddingTop="16dp"
+                android:paddingBottom="12dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- First Name -->
@@ -106,7 +108,9 @@
                 android:drawableStart="@drawable/ic_material_user"
                 android:drawableTint="@color/light_gray"
                 android:drawablePadding="8dp"
-                android:hint="Enter your first name" />
+                android:hint="Enter your first name"
+                android:paddingTop="16dp"
+                android:paddingBottom="12dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Last Name -->
@@ -133,7 +137,9 @@
                 android:drawableStart="@drawable/ic_material_user"
                 android:drawableTint="@color/light_gray"
                 android:drawablePadding="8dp"
-                android:hint="Enter your last name" />
+                android:hint="Enter your last name"
+                android:paddingTop="16dp"
+                android:paddingBottom="12dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password -->
@@ -162,7 +168,9 @@
                 android:drawableStart="@drawable/ic_material_lock"
                 android:drawableTint="@color/light_gray"
                 android:drawablePadding="8dp"
-                android:hint="Enter your password" />
+                android:hint="Enter your password"
+                android:paddingTop="16dp"
+                android:paddingBottom="12dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Confirm Password -->
@@ -191,7 +199,9 @@
                 android:drawableStart="@drawable/ic_material_lock"
                 android:drawableTint="@color/light_gray"
                 android:drawablePadding="8dp"
-                android:hint="Confirm your password" />
+                android:hint="Confirm your password"
+                android:paddingTop="16dp"
+                android:paddingBottom="12dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Create Account button -->
