@@ -11,6 +11,7 @@ import edu.bhcc.cho.hocusfocustodo.R
 import edu.bhcc.cho.hocusfocustodo.data.model.Task
 import java.util.*
 
+
 class TaskOverviewActivity : AppCompatActivity() {
 
     private lateinit var inputQ1: TextInputEditText
@@ -25,6 +26,7 @@ class TaskOverviewActivity : AppCompatActivity() {
 
     private lateinit var logoutButton: Button
 
+
     private val q1Tasks = mutableListOf<Task>()
     private val q2Tasks = mutableListOf<Task>()
     private val q3Tasks = mutableListOf<Task>()
@@ -35,6 +37,7 @@ class TaskOverviewActivity : AppCompatActivity() {
     private lateinit var adapterQ3: TaskAdapter
     private lateinit var adapterQ4: TaskAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_overview)
@@ -43,6 +46,7 @@ class TaskOverviewActivity : AppCompatActivity() {
         setupRecyclerViews()
         setupListeners()
         populateDummyTasks()
+
     }
 
     private fun bindViews() {
@@ -60,10 +64,12 @@ class TaskOverviewActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViews() {
+
         adapterQ1 = TaskAdapter(q1Tasks, ::onDeleteTask, ::onToggleComplete)
         adapterQ2 = TaskAdapter(q2Tasks, ::onDeleteTask, ::onToggleComplete)
         adapterQ3 = TaskAdapter(q3Tasks, ::onDeleteTask, ::onToggleComplete)
         adapterQ4 = TaskAdapter(q4Tasks, ::onDeleteTask, ::onToggleComplete)
+
 
         listQ1.layoutManager = LinearLayoutManager(this)
         listQ1.adapter = adapterQ1
