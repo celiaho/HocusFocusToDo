@@ -1,6 +1,9 @@
 package edu.bhcc.cho.hocusfocustodo.ui.task
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import edu.bhcc.cho.hocusfocustodo.R
 import edu.bhcc.cho.hocusfocustodo.data.model.Task
+import edu.bhcc.cho.hocusfocustodo.data.network.TaskApiService
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import java.util.*
-
 
 class TaskOverviewActivity : AppCompatActivity() {
 
@@ -26,7 +30,6 @@ class TaskOverviewActivity : AppCompatActivity() {
 
     private lateinit var logoutButton: Button
 
-
     private val q1Tasks = mutableListOf<Task>()
     private val q2Tasks = mutableListOf<Task>()
     private val q3Tasks = mutableListOf<Task>()
@@ -37,16 +40,23 @@ class TaskOverviewActivity : AppCompatActivity() {
     private lateinit var adapterQ3: TaskAdapter
     private lateinit var adapterQ4: TaskAdapter
 
+    private lateinit var sessionManager: SessionManager
+    private var documentId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_overview)
 
+        sessionManager = SessionManager(this)
+        documentId = sessionManager.getTaskDocumentId()
+
+        if (documentId != null) {
+            loadTasksFromServer(documentId!!)
+        }
+
         bindViews()
         setupRecyclerViews()
         setupListeners()
-        populateDummyTasks()
-
     }
 
     private fun bindViews() {
@@ -64,12 +74,10 @@ class TaskOverviewActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViews() {
-
         adapterQ1 = TaskAdapter(q1Tasks, ::onDeleteTask, ::onToggleComplete)
         adapterQ2 = TaskAdapter(q2Tasks, ::onDeleteTask, ::onToggleComplete)
         adapterQ3 = TaskAdapter(q3Tasks, ::onDeleteTask, ::onToggleComplete)
         adapterQ4 = TaskAdapter(q4Tasks, ::onDeleteTask, ::onToggleComplete)
-
 
         listQ1.layoutManager = LinearLayoutManager(this)
         listQ1.adapter = adapterQ1
@@ -127,7 +135,93 @@ class TaskOverviewActivity : AppCompatActivity() {
             taskList.add(newTask)
             adapter.notifyItemInserted(taskList.size - 1)
             inputField.text = null
+            saveAllTasksToServer()
         }
+    }
+
+    private fun saveAllTasksToServer() {
+        val allTasks = mapOf(
+            "q1_u_i" to q1Tasks,
+            "q2_nu_i" to q2Tasks,
+            "q3_u_ni" to q3Tasks,
+            "q4_nu_ni" to q4Tasks
+        )
+
+        val taskApiService = TaskApiService(this)
+
+        if (documentId == null) {
+            // 🔥 Call createNewDocument because no document exists yet
+            taskApiService.createNewDocument(
+                taskMap = allTasks,
+                onSuccess = { newId ->
+                    // ✅ Success callback goes here
+                    documentId = newId
+                    sessionManager.saveTaskDocumentId(newId)
+
+                    // Optional: immediately trigger save again now that you have a document ID
+                    taskApiService.saveAllTasks(
+                        documentId = newId,
+                        taskMap = allTasks,
+                        onSuccess = {
+                            Log.d("SAVE_TASKS", "Initial task saved after doc creation.")
+                        },
+                        onError = {
+                            Log.e("SAVE_TASKS", "Failed to save after doc creation: ${it.message}")
+                        }
+                    )
+                },
+                onError = {
+                    Log.e("SAVE_TASKS", "Error creating document: ${it.message}")
+                    Toast.makeText(this, "Failed to create document", Toast.LENGTH_SHORT).show()
+                }
+            )
+        } else {
+            // ✅ If document exists, just save
+            taskApiService.saveAllTasks(
+                documentId = documentId!!,
+                taskMap = allTasks,
+                onSuccess = {
+                    Log.d("SAVE_TASKS", "Tasks saved to existing document.")
+                },
+                onError = {
+                    Log.e("SAVE_TASKS", "Failed to save tasks: ${it.message}")
+                    Toast.makeText(this, "Failed to save tasks", Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
+    }
+
+    private fun loadTasksFromServer(docId: String) {
+        val taskApiService = TaskApiService(this)
+
+        taskApiService.getAllTasks(
+            documentId = docId,
+            onSuccess = { taskMap ->
+                // Clear existing lists
+                q1Tasks.clear()
+                q2Tasks.clear()
+                q3Tasks.clear()
+                q4Tasks.clear()
+
+                // Load new data
+                q1Tasks.addAll(taskMap["q1_u_i"].orEmpty())
+                q2Tasks.addAll(taskMap["q2_nu_i"].orEmpty())
+                q3Tasks.addAll(taskMap["q3_u_ni"].orEmpty())
+                q4Tasks.addAll(taskMap["q4_nu_ni"].orEmpty())
+
+                // Notify adapters
+                adapterQ1.notifyDataSetChanged()
+                adapterQ2.notifyDataSetChanged()
+                adapterQ3.notifyDataSetChanged()
+                adapterQ4.notifyDataSetChanged()
+
+                Log.d("LOAD_TASKS", "Tasks loaded successfully from document $docId")
+            },
+            onError = {
+                Log.e("LOAD_TASKS", "Failed to load tasks: ${it.message}")
+                Toast.makeText(this, "Failed to load tasks", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     private fun onDeleteTask(task: Task) {
@@ -142,11 +236,29 @@ class TaskOverviewActivity : AppCompatActivity() {
         if (index != -1) {
             list.removeAt(index)
             getAdapterForQuadrant(task.quadrant).notifyItemRemoved(index)
+            saveAllTasksToServer()
         }
     }
 
     private fun onToggleComplete(task: Task) {
-        // Optional: Save task completion state
+        task.isCompleted = !task.isCompleted
+
+        Handler(Looper.getMainLooper()).post {
+            val adapter = getAdapterForQuadrant(task.quadrant)
+            val list = when (task.quadrant) {
+                "q1_u_i" -> q1Tasks
+                "q2_nu_i" -> q2Tasks
+                "q3_u_ni" -> q3Tasks
+                "q4_nu_ni" -> q4Tasks
+                else -> return@post
+            }
+            val index = list.indexOfFirst { it.id == task.id }
+            if (index != -1) {
+                adapter.notifyItemChanged(index)
+            }
+        }
+
+        saveAllTasksToServer()
     }
 
     private fun getAdapterForQuadrant(quadrant: String): TaskAdapter {
@@ -157,31 +269,5 @@ class TaskOverviewActivity : AppCompatActivity() {
             "q4_nu_ni" -> adapterQ4
             else -> throw IllegalArgumentException("Unknown quadrant: $quadrant")
         }
-    }
-
-    private fun populateDummyTasks() {
-        val dummyQ1 = listOf(
-            Task(UUID.randomUUID().toString(), "Finish capstone", false, "q1_u_i"),
-            Task(UUID.randomUUID().toString(), "Submit demo video", true, "q1_u_i")
-        )
-        val dummyQ2 = listOf(
-            Task(UUID.randomUUID().toString(), "Buy snacks for group meeting", false, "q2_nu_i")
-        )
-        val dummyQ3 = listOf(
-            Task(UUID.randomUUID().toString(), "Ask Rider to update README", false, "q3_u_ni")
-        )
-        val dummyQ4 = listOf(
-            Task(UUID.randomUUID().toString(), "Rewatch cat video", false, "q4_nu_ni")
-        )
-
-        q1Tasks.addAll(dummyQ1)
-        q2Tasks.addAll(dummyQ2)
-        q3Tasks.addAll(dummyQ3)
-        q4Tasks.addAll(dummyQ4)
-
-        adapterQ1.notifyItemRangeInserted(0, dummyQ1.size)
-        adapterQ2.notifyItemRangeInserted(0, dummyQ2.size)
-        adapterQ3.notifyItemRangeInserted(0, dummyQ3.size)
-        adapterQ4.notifyItemRangeInserted(0, dummyQ4.size)
     }
 }
