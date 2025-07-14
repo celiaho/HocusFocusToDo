@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:id="@+id/scrollView">
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Top vector graphic -->
+        <!-- Top vector graphic (slides up to show only bottom wave) -->
         <ImageView
             android:id="@+id/login_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
             android:scaleType="fitStart"
-            android:src="@drawable/ic_green_background_vector" />
+            android:adjustViewBounds="true"
+            android:translationY="-224dp"
+            android:src="@drawable/ic_green_background_vector"
+            android:contentDescription="@string/app_name" />
 
-        <!-- Login form -->
+
+        <!-- Login form (no translationY!) -->
         <LinearLayout
-            android:layout_marginTop="16dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
             android:padding="24dp"
+            android:translationY="-284dp"
             android:background="@android:color/transparent">
 
             <!-- Screen title -->
@@ -66,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="36dp" />
 
             <!-- Email input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -142,7 +149,7 @@
                 android:fontFamily="@font/rubik_medium"
                 android:backgroundTint="@color/green"
                 android:textColor="@android:color/white"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="64dp"
                 android:layout_marginBottom="16dp" />
 
             <!-- Sign up link -->
@@ -155,5 +162,5 @@
                 android:fontFamily="@font/rubik_regular"
                 android:text="Don’t have an account? Sign up" />
         </LinearLayout>
-    </FrameLayout>
-</ScrollView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
