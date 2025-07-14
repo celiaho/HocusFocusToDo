@@ -1,15 +1,19 @@
 package edu.bhcc.cho.hocusfocustodo.ui.auth
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat // 🌟 NEW
+import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import edu.bhcc.cho.hocusfocustodo.R
 import edu.bhcc.cho.hocusfocustodo.data.model.LoginRequest
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
@@ -24,6 +28,7 @@ import java.time.Instant
  */
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var scrollView: NestedScrollView
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
@@ -38,7 +43,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize views
+        scrollView = findViewById(R.id.scrollView) // Must match the ID in XML
+        scrollView.setOnTouchListener { _, _ -> true } // Disable manual scrolling
+
         emailEditText = findViewById(R.id.login_email)
         passwordEditText = findViewById(R.id.login_password)
         loginButton = findViewById(R.id.login_button)
@@ -51,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
 
         Log.d("---LOGIN_PAGE_LOADED", "---LOGIN_PAGE_LOADED")
 
-        // 🌟 Make only "Sign Up" green
+        // Color just "Sign Up" in green
         val fullText = "Don't have an account? Sign Up"
         val signUpText = "Sign Up"
         val spannable = SpannableString(fullText)
@@ -65,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
         )
         signupLink.text = spannable
 
-        // Handle login button click
+        // Login button click
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
@@ -108,20 +115,43 @@ class LoginActivity : AppCompatActivity() {
             )
         }
 
-        // Handle "Forgot Password?" link
+        // Forgot Password link
         forgotPasswordLink.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             Log.d("---FORGOT_PASSWORD_LINK_CLICKED", "---FORGOT_PASSWORD_LINK_CLICKED")
-
             val intent = Intent(this, PasswordForgotActivity::class.java)
             intent.putExtra("EMAIL", email)
             startActivity(intent)
         }
 
-        // Handle "Sign up" link
+        // Sign up link
         signupLink.setOnClickListener {
             Log.d("---SIGNUP_LINK_CLICKED", "---SIGNUP_LINK_CLICKED")
             startActivity(Intent(this, SignupActivity::class.java))
+        }
+
+        // 🧠 Keyboard scroll logic
+        val rootView = findViewById<View>(android.R.id.content)
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            rootView.getWindowVisibleDisplayFrame(r)
+            val screenHeight = rootView.rootView.height
+            val keypadHeight = screenHeight - r.bottom
+
+            if (keypadHeight > screenHeight * 0.15) {
+                // keyboard is open → scroll to input
+                val focusedView = currentFocus
+                focusedView?.let {
+                    scrollView.post {
+                        scrollView.scrollTo(0, it.bottom)
+                    }
+                }
+            } else {
+                // keyboard closed → scroll to top
+                scrollView.post {
+                    scrollView.scrollTo(0, 0)
+                }
+            }
         }
     }
 }

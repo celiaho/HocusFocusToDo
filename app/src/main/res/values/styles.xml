@@ -64,6 +64,7 @@
         <item name="boxStrokeWidthFocused">2dp</item> <!-- Underline thickness when focused -->
 
         <item name="fontFamily">@font/rubik_regular</item>
+        <item name="minHeight">56dp</item>
 
         <!-- Attempt to force underline defaults -->
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout.Underline</item>
@@ -92,6 +93,7 @@
         <item name="android:textColorHint">@color/light_gray</item>
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:minHeight">48dp</item>
     </style>
 
     <!-- Task text -->

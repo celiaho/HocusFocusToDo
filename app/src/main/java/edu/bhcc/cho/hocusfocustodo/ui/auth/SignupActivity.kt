@@ -1,6 +1,7 @@
 package edu.bhcc.cho.hocusfocustodo.ui.auth
 
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import edu.bhcc.cho.hocusfocustodo.R
@@ -19,6 +21,8 @@ import edu.bhcc.cho.hocusfocustodo.data.model.SignupRequest
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
 
 class SignupActivity : AppCompatActivity() {
+
+    private lateinit var scrollView: NestedScrollView
 
     private lateinit var emailLayout: TextInputLayout
     private lateinit var firstNameLayout: TextInputLayout
@@ -41,6 +45,9 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
+        scrollView = findViewById(R.id.scrollView)
+        scrollView.setOnTouchListener { _, _ -> true } // Disable manual scrolling
+
         // Link TextInputLayouts
         emailLayout = findViewById(R.id.signup_email_container)
         firstNameLayout = findViewById(R.id.signup_first_name_container)
@@ -59,10 +66,10 @@ class SignupActivity : AppCompatActivity() {
         signupButton = findViewById(R.id.signup_button)
         loginLink = findViewById(R.id.signup_login_link)
 
-        // Initialize API service
         apiService = AuthApiService(this)
 
         setupLoginLink()
+        setupKeyboardAutoScroll()
 
         signupButton.setOnClickListener {
             validateAndSignup()
@@ -92,8 +99,30 @@ class SignupActivity : AppCompatActivity() {
         loginLink.highlightColor = android.graphics.Color.TRANSPARENT
     }
 
+    private fun setupKeyboardAutoScroll() {
+        val rootView = findViewById<View>(android.R.id.content)
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            rootView.getWindowVisibleDisplayFrame(r)
+            val screenHeight = rootView.rootView.height
+            val keypadHeight = screenHeight - r.bottom
+
+            if (keypadHeight > screenHeight * 0.15) {
+                val focused = currentFocus
+                focused?.let {
+                    scrollView.post {
+                        scrollView.scrollTo(0, it.bottom)
+                    }
+                }
+            } else {
+                scrollView.post {
+                    scrollView.scrollTo(0, 0)
+                }
+            }
+        }
+    }
+
     private fun validateAndSignup() {
-        // Clear previous errors
         emailLayout.error = null
         firstNameLayout.error = null
         lastNameLayout.error = null
@@ -144,7 +173,6 @@ class SignupActivity : AppCompatActivity() {
 
         if (!valid) return
 
-        // Proceed with signup
         val request = SignupRequest(email, password, firstName, lastName, extra = null)
 
         apiService.signupUser(
@@ -154,7 +182,7 @@ class SignupActivity : AppCompatActivity() {
                 finish()
             },
             onError = {
-                emailLayout.error = it // Display API error here for simplicity
+                emailLayout.error = it
             }
         )
     }
