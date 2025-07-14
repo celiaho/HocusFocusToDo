@@ -89,51 +89,6 @@ class TaskApiService(context: Context) {
         requestQueue.add(request)
     }
 
-    fun createNewDocument(
-        taskMap: Map<String, List<Task>>,
-        onSuccess: (String) -> Unit,
-        onError: (VolleyError) -> Unit
-    ) {
-        val url = "$baseUrl/documents"
-        val content = JSONObject()
-
-        taskMap.forEach { (quadrant, tasks) ->
-            val taskArray = JSONArray()
-            tasks.forEach { task ->
-                val taskJson = JSONObject().apply {
-                    put("id", task.id)
-                    put("text", task.text)
-                    put("isCompleted", task.isCompleted)
-                    task.dueDate?.let { put("dueDate", it) }
-                }
-                taskArray.put(taskJson)
-            }
-            content.put(quadrant, taskArray)
-        }
-
-        val payload = JSONObject().put("content", content)
-
-        val request = object : JsonObjectRequest(Method.POST, url, payload,
-            { response ->
-                val docId = response.optString("id", null)
-                if (docId != null) {
-                    onSuccess(docId)
-                } else {
-                    Log.e("TaskApiService", "Missing document ID in create response")
-                    onError(VolleyError("Missing document ID"))
-                }
-            },
-            { error ->
-                Log.e("TaskApiService", "Error creating document: ${error.message}")
-                onError(error)
-            }
-        ) {
-            override fun getHeaders(): MutableMap<String, String> = authHeaders().toMutableMap()
-        }
-
-        requestQueue.add(request)
-    }
-
     fun deleteTask(
         taskId: String,
         onSuccess: () -> Unit,

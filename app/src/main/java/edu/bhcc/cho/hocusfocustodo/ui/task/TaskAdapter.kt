@@ -30,33 +30,27 @@ class TaskAdapter(
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
 
-        // Bind static fields
         holder.text.text = task.text
+        holder.checkBox.isChecked = task.isCompleted
         holder.text.alpha = if (task.isCompleted) 0.5f else 1f
 
         holder.dueDate.setText(task.dueDate)
         holder.dueDate.visibility = if (task.dueDate != null) View.VISIBLE else View.GONE
 
-        // Remove any existing listener before setting the checked state
         holder.checkBox.setOnCheckedChangeListener(null)
-        holder.checkBox.isChecked = task.isCompleted
-
-        // Defer toggle callback to avoid RecyclerView layout crash
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            holder.checkBox.post {
-                task.isCompleted = isChecked
-                onToggleComplete(task.copy(isCompleted = isChecked)) // copy to avoid mutating here
-            }
+            task.isCompleted = isChecked
+            onToggleComplete(task)
+            notifyItemChanged(position)
         }
 
-        // Defer delete callback as well (and remove local notifyItemRemoved)
         holder.deleteButton.setOnClickListener {
-            holder.deleteButton.post {
-                onDelete(task)
-            }
+            onDelete(task)
+            tasks.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, tasks.size)
         }
     }
-
 
     override fun getItemCount(): Int = tasks.size
 }
