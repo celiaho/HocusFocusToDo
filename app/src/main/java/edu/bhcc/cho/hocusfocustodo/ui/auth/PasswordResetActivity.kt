@@ -1,11 +1,14 @@
 package edu.bhcc.cho.hocusfocustodo.ui.auth
 
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import com.google.android.material.textfield.TextInputEditText
 import edu.bhcc.cho.hocusfocustodo.R
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
@@ -15,6 +18,7 @@ import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
  */
 class PasswordResetActivity : AppCompatActivity() {
 
+    private lateinit var scrollView: NestedScrollView
     private lateinit var otpField: TextInputEditText
     private lateinit var newPasswordField: TextInputEditText
     private lateinit var confirmPasswordField: TextInputEditText
@@ -29,6 +33,9 @@ class PasswordResetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_password_reset)
 
         // Initialize views
+        scrollView = findViewById(R.id.scrollView)
+        scrollView.setOnTouchListener { _, _ -> true } // Disable manual scroll
+
         otpField = findViewById(R.id.reset_otp)
         newPasswordField = findViewById(R.id.reset_password)
         confirmPasswordField = findViewById(R.id.confirm_password)
@@ -44,6 +51,9 @@ class PasswordResetActivity : AppCompatActivity() {
 
         // Show demo OTP hint
         Toast.makeText(this, "Check server log for demo OTP.", Toast.LENGTH_LONG).show()
+
+        // Enable keyboard-triggered scroll
+        setupKeyboardAutoScroll()
 
         // Handle back link
         backLink.setOnClickListener {
@@ -106,6 +116,28 @@ class PasswordResetActivity : AppCompatActivity() {
             } ?: run {
                 errorText.text = "Email not found. Please restart the process."
                 errorText.visibility = TextView.VISIBLE
+            }
+        }
+    }
+
+    private fun setupKeyboardAutoScroll() {
+        val rootView = findViewById<View>(android.R.id.content)
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            rootView.getWindowVisibleDisplayFrame(r)
+            val screenHeight = rootView.rootView.height
+            val keypadHeight = screenHeight - r.bottom
+
+            if (keypadHeight > screenHeight * 0.15) {
+                currentFocus?.let {
+                    scrollView.post {
+                        scrollView.scrollTo(0, it.bottom)
+                    }
+                }
+            } else {
+                scrollView.post {
+                    scrollView.scrollTo(0, 0)
+                }
             }
         }
     }
