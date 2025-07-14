@@ -38,7 +38,8 @@
         <!-- TASK OVERVIEW SCREEN -->
         <activity
             android:name=".ui.task.TaskOverviewActivity"
-            android:theme="@style/Theme.HocusFocus" />
+            android:theme="@style/Theme.HocusFocus"
+            android:windowSoftInputMode="adjustResize"/>
 
         <!-- LAUNCHER -->
         <activity
