@@ -1,10 +1,14 @@
 package edu.bhcc.cho.hocusfocustodo.ui.task
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText
 import edu.bhcc.cho.hocusfocustodo.R
 import edu.bhcc.cho.hocusfocustodo.data.model.Task
 import edu.bhcc.cho.hocusfocustodo.data.network.TaskApiService
+import edu.bhcc.cho.hocusfocustodo.ui.auth.LoginActivity
 import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import java.util.*
 
@@ -28,7 +33,7 @@ class TaskOverviewActivity : AppCompatActivity() {
     private lateinit var listQ3: RecyclerView
     private lateinit var listQ4: RecyclerView
 
-    private lateinit var logoutButton: Button
+    private lateinit var logoutButton: ImageButton
 
     private val q1Tasks = mutableListOf<Task>()
     private val q2Tasks = mutableListOf<Task>()
@@ -39,6 +44,9 @@ class TaskOverviewActivity : AppCompatActivity() {
     private lateinit var adapterQ2: TaskAdapter
     private lateinit var adapterQ3: TaskAdapter
     private lateinit var adapterQ4: TaskAdapter
+
+    private val taskApiService = TaskApiService(this)
+
 
     private lateinit var sessionManager: SessionManager
     private var documentId: String? = null
@@ -70,7 +78,7 @@ class TaskOverviewActivity : AppCompatActivity() {
         listQ3 = findViewById(R.id.list_q3)
         listQ4 = findViewById(R.id.list_q4)
 
-        logoutButton = findViewById(R.id.button_logout)
+        logoutButton = findViewById<ImageButton>(R.id.button_logout)
     }
 
     private fun setupRecyclerViews() {
@@ -94,7 +102,12 @@ class TaskOverviewActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         logoutButton.setOnClickListener {
-            Toast.makeText(this, "Logged out (placeholder)", Toast.LENGTH_SHORT).show()
+            sessionManager.clearSession()  // 👈 Clears auth token, user ID, etc.
+
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
 
         inputQ1.setOnEditorActionListener { _, _, _ ->
@@ -136,7 +149,13 @@ class TaskOverviewActivity : AppCompatActivity() {
             adapter.notifyItemInserted(taskList.size - 1)
             inputField.text = null
             saveAllTasksToServer()
+            hideKeyboard(inputField)  // 👈 Hide keyboard here
         }
+    }
+
+    private fun hideKeyboard(view: android.view.View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun saveAllTasksToServer() {
@@ -225,19 +244,29 @@ class TaskOverviewActivity : AppCompatActivity() {
     }
 
     private fun onDeleteTask(task: Task) {
-        val list = when (task.quadrant) {
-            "q1_u_i" -> q1Tasks
-            "q2_nu_i" -> q2Tasks
-            "q3_u_ni" -> q3Tasks
-            "q4_nu_ni" -> q4Tasks
-            else -> return
-        }
-        val index = list.indexOfFirst { it.id == task.id }
-        if (index != -1) {
-            list.removeAt(index)
-            getAdapterForQuadrant(task.quadrant).notifyItemRemoved(index)
-            saveAllTasksToServer()
-        }
+        // Call the server to delete the task first
+        taskApiService.deleteTask(
+            taskId = task.id,
+            onSuccess = {
+                // If successful, remove it from the correct list and notify the adapter
+                val list = when (task.quadrant) {
+                    "q1_u_i" -> q1Tasks
+                    "q2_nu_i" -> q2Tasks
+                    "q3_u_ni" -> q3Tasks
+                    "q4_nu_ni" -> q4Tasks
+                    else -> return@deleteTask
+                }
+
+                val index = list.indexOfFirst { it.id == task.id }
+                if (index != -1) {
+                    list.removeAt(index)
+                    getAdapterForQuadrant(task.quadrant).notifyItemRemoved(index)
+                }
+            },
+            onError = { error ->
+                Toast.makeText(this, "Failed to delete task: ${error.message}", Toast.LENGTH_LONG).show()
+            }
+        )
     }
 
     private fun onToggleComplete(task: Task) {

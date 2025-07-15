@@ -139,7 +139,7 @@ class TaskApiService(context: Context) {
         onSuccess: () -> Unit,
         onError: (VolleyError) -> Unit
     ) {
-        val url = "$baseUrl/tasks/$taskId"
+        val url = "$baseUrl/documents/$taskId"
         val request = object : StringRequest(Method.DELETE, url,
             { _ -> onSuccess() },
             { error -> onError(error) }

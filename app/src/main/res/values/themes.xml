@@ -20,6 +20,7 @@
 
         <!-- Prevent forced dark mode on newer devices -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:statusBarColor">@color/dark_gray</item>
 
     </style>
 

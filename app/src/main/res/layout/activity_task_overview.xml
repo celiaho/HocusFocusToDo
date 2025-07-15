@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -9,205 +9,247 @@
     android:background="@color/off_white"
     tools:context=".ui.task.TaskOverviewActivity">
 
-    <!-- Scrollable matrix -->
+    <!-- Top App Bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/top_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_gray"
+        android:elevation="4dp"
+        app:title="Hocus Focus!"
+        app:titleTextColor="@color/off_white" />
 
+    <!-- Scrollable matrix -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
-            <!-- Quadrant I -->
-            <LinearLayout
-                android:orientation="vertical"
+            <!-- Quadrant I - Do -->
+            <TextView
+                style="@style/QuadrantTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:background="@color/green"
+                android:textColor="@color/white"
+                android:text="I: Do"
+                android:padding="12dp"
+                android:layout_marginBottom="-8dp" />
 
-                <TextView
-
-                    style="@style/QuadrantTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
-                    android:text="I. URGENT &amp; IMPORTANT - DO NOW"
-                    android:padding="8dp" />
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
-
-
-            <!-- Quadrant II -->
-
-            <LinearLayout
-                android:orientation="vertical"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
 
-                <TextView
-                    style="@style/QuadrantTitle"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/blue"
-                    android:textColor="@color/white"
-                    android:text="II. URGENT &amp; NOT IMPORTANT - DECIDE WHEN TO SCHEDULE"
-                    android:padding="8dp" />
+                    android:background="@android:color/white"
+                    android:padding="8dp">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q2"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
+                        app:hintEnabled="false">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/AppInputTextAppearance"
+                            android:hint="Add task" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Quadrant III -->
-            <LinearLayout
-                android:orientation="vertical"
+            <!-- Quadrant II - Decide -->
+            <TextView
+                style="@style/QuadrantTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:background="@color/blue"
+                android:textColor="@color/white"
+                android:text="II: Decide"
+                android:padding="12dp"
+                android:layout_marginBottom="-8dp" />
 
-                <TextView
-                    style="@style/QuadrantTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/orange"
-                    android:textColor="@color/white"
-                    android:text="III. NOT URGENT &amp; IMPORTANT - DELEGATE"
-                    android:padding="8dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
-
-            <!-- Quadrant IV -->
-
-            <LinearLayout
-                android:orientation="vertical"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
 
-                <TextView
-                    style="@style/QuadrantTitle"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/red"
-                    android:textColor="@color/white"
-                    android:text="IV. NOT URGENT &amp; NOT IMPORTANT - DELETE"
-                    android:padding="8dp" />
+                    android:background="@android:color/white"
+                    android:padding="8dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q4"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
+                        app:hintEnabled="false">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/AppInputTextAppearance"
+                            android:hint="Add task" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q4"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Quadrant III - Delegate -->
+            <TextView
+                style="@style/QuadrantTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/orange"
+                android:textColor="@color/white"
+                android:text="III: Delegate"
+                android:padding="12dp"
+                android:layout_marginBottom="-8dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    android:background="@android:color/white"
+                    android:padding="8dp">
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/AppInputTextAppearance"
+                            android:hint="Add task" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Quadrant IV - Delete -->
+            <TextView
+                style="@style/QuadrantTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:textColor="@color/white"
+                android:text="IV: Delete"
+                android:padding="12dp"
+                android:layout_marginBottom="-8dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:padding="8dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/AppInputTextAppearance"
+                            android:hint="Add task" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom nav -->
-    <LinearLayout
+    <!-- Bottom Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/bottom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:background="@color/eisen_canvas"
-        android:paddingHorizontal="16dp"
-        android:gravity="center_vertical"
+        android:background="@color/medium_gray"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
         android:elevation="4dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        app:contentInsetStart="16dp"
+        app:contentInsetEnd="16dp">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/app_name" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_hocus_focus_logo"
+            android:contentDescription="@string/app_name"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="8dp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
+        <ImageButton
             android:id="@+id/button_logout"
-            style="@style/PrimaryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log Out" />
-    </LinearLayout>
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_logout"
+            android:layout_gravity="end|center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            app:tint="@color/white" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
 </LinearLayout>

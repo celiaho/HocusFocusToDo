@@ -60,6 +60,12 @@ class PasswordForgotActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                errorText.text = "Please enter a valid email address."
+                errorText.visibility = TextView.VISIBLE
+                return@setOnClickListener
+            }
+
             errorText.visibility = TextView.GONE
 
             // Hide keyboard
@@ -100,17 +106,19 @@ class PasswordForgotActivity : AppCompatActivity() {
             if (keypadHeight > screenHeight * 0.15) {
                 // Keyboard is open
                 val focused = currentFocus
-                focused?.let {
+                focused?.let { view ->
+                    val scrollY = view.top - 100
                     scrollView.post {
-                        scrollView.scrollTo(0, it.bottom)
+                        scrollView.smoothScrollTo(0, scrollY.coerceAtLeast(0))
                     }
                 }
             } else {
                 // Keyboard is closed
                 scrollView.post {
-                    scrollView.scrollTo(0, 0)
+                    scrollView.smoothScrollTo(0, 0)
                 }
             }
         }
     }
+
 }
