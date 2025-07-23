@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hocus Focus</string>
+    <string name="add_task_help_text">Add task and press enter to save</string>
 </resources>
