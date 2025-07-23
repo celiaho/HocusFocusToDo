@@ -3,7 +3,7 @@
 
     <!-- Base app theme: Task Overview + post-auth screens -->
     <style name="Theme.HocusFocus" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Task Overview uses blue focus underline -->
+        <!-- ??? This is not true: Task Overview uses blue focus underline -->
         <item name="colorPrimary">@color/blue</item>
         <item name="colorOnPrimary">@color/white</item> <!-- What is this used for? -->
 <!--        <item name="colorSecondary">@color/blue</item>-->
@@ -21,7 +21,6 @@
         <!-- Prevent forced dark mode on newer devices -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="android:statusBarColor">@color/dark_gray</item>
-
     </style>
 
     <!-- Auth pages theme: auth_green focus underline -->
@@ -35,6 +34,5 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
-
 
 </resources>
