@@ -149,7 +149,7 @@ class TaskOverviewActivity : AppCompatActivity() {
             adapter.notifyItemInserted(taskList.size - 1)
             inputField.text = null
             saveAllTasksToServer()
-            hideKeyboard(inputField)  // 👈 Hide keyboard here
+            hideKeyboard(inputField)  // Hide keyboard here
         }
     }
 

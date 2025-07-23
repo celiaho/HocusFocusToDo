@@ -1,5 +1,6 @@
 package edu.bhcc.cho.hocusfocustodo.ui.task
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,10 +31,19 @@ class TaskAdapter(
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
 
-        // Bind static fields
+        // Set task text
         holder.text.text = task.text
-        holder.text.alpha = if (task.isCompleted) 0.5f else 1f
 
+        // Apply strikethrough and alpha for completed tasks
+        if (task.isCompleted) {
+            holder.text.paintFlags = holder.text.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.text.alpha = 0.5f
+        } else {
+            holder.text.paintFlags = holder.text.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            holder.text.alpha = 1f
+        }
+
+        // Set due date
         holder.dueDate.setText(task.dueDate)
         holder.dueDate.visibility = if (task.dueDate != null) View.VISIBLE else View.GONE
 
@@ -41,7 +51,7 @@ class TaskAdapter(
         holder.checkBox.setOnCheckedChangeListener(null)
         holder.checkBox.isChecked = task.isCompleted
 
-        // Defer toggle callback to avoid RecyclerView layout crash
+        // Set new listener / Defer toggle callback to avoid RecyclerView layout crash
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             holder.checkBox.post {
                 task.isCompleted = isChecked
@@ -56,7 +66,6 @@ class TaskAdapter(
             }
         }
     }
-
 
     override fun getItemCount(): Int = tasks.size
 }

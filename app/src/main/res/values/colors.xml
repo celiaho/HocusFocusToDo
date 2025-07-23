@@ -18,6 +18,6 @@
     <color name="error_red">#FF0101</color> <!-- Error messages, error state -->
 
     <!-- Background / supporting colors -->
-    <color name="eisen_canvas">#f6faff</color> <!-- Suggested background for Task Overview nav bar -->
+    <color name="canvas">#f6faff</color> <!-- Suggested background for Task Overview nav bar -->
 
 </resources>

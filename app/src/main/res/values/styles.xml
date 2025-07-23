@@ -55,14 +55,12 @@
         <item name="android:textColorHint">@color/medium_gray</item>
 
         <!-- Underline Color and Control -->
-        <item name="boxStrokeColor">@android:color/holo_blue_dark</item> <!-- DEBUGGING -->
+        <item name="boxStrokeColor">@color/off_white</item> <!-- Changed to off-white to hide extra underline when clicking editTexts / old comment: DEBUGGING-->
 
         <!-- Make the filled box background transparent -->
-        <item name="boxBackgroundColor">@android:color/transparent</item>
-
+        <item name="boxBackgroundColor">@android:color/holo_blue_bright</item> <!-- ??? This color is never used -->
         <item name="boxStrokeWidth">0dp</item> <!-- No surrounding box stroke -->
-        <item name="boxStrokeWidthFocused">2dp</item> <!-- Underline thickness when focused -->
-
+        <item name="boxStrokeWidthFocused">1dp</item> <!-- Underline thickness when focused -->
         <item name="fontFamily">@font/rubik_regular</item>
         <item name="minHeight">56dp</item>
 
@@ -72,11 +70,30 @@
 
     <!-- This overlay will try to ensure underline properties are set for FilledBox -->
     <style name="ThemeOverlay.App.TextInputLayout.Underline" parent="">
-        <item name="colorPrimary">@android:color/holo_blue_dark</item> <!-- Or your desired focused color -->
-        <item name="colorOnSurface">@android:color/holo_blue_dark</item> <!-- Or your desired normal underline color -->
-
+        <item name="colorPrimary">@android:color/holo_red_dark</item> <!-- ??? Or your desired focused color -->
+        <item name="colorOnSurface">@android:color/holo_purple</item> <!-- ??? Or your desired normal underline color -->
     </style>
 
+
+    <!-- Centralized input text appearance -->
+    <style name="AppInputTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/medium_gray</item>
+        <item name="android:textColorHint">@color/light_gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- Quadrant title bar -->
+    <style name="QuadrantTitleBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingEnd">14dp</item>
+    </style>
 
     <!-- Quadrant title -->
     <style name="QuadrantTitle">
@@ -84,16 +101,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <!-- Centralized input text appearance -->
-    <style name="AppInputTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/medium_gray</item>
-        <item name="android:textColorHint">@color/light_gray</item>
-        <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/rubik_regular</item>
-        <item name="android:minHeight">48dp</item>
+    <!-- Urgency/Importance label -->
+    <style name="UrgencyImportanceLabel">
+        <item name="android:textSize">16sp</item>
     </style>
 
     <!-- Task text -->
