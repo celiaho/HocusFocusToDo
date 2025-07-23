@@ -211,11 +211,15 @@ class TaskOverviewActivity : AppCompatActivity() {
     }
 
     private fun loadTasksFromServer(docId: String) {
+        Log.d("LOAD_TASKS", "Starting task load for documentId = $docId")
+
         val taskApiService = TaskApiService(this)
 
         taskApiService.getAllTasks(
             documentId = docId,
             onSuccess = { taskMap ->
+                Log.d("LOAD_TASKS", "Raw quadrant keys returned: ${taskMap.keys}")
+
                 // Clear existing lists
                 q1Tasks.clear()
                 q2Tasks.clear()
@@ -236,8 +240,12 @@ class TaskOverviewActivity : AppCompatActivity() {
 
                 Log.d("LOAD_TASKS", "Tasks loaded successfully from document $docId")
             },
-            onError = {
-                Log.e("LOAD_TASKS", "Failed to load tasks: ${it.message}")
+            onError = { error ->
+                Log.e("LOAD_TASKS", "Failed to load tasks from server")
+                Log.e("LOAD_TASKS", "Error message: ${error.message}")
+                Log.e("LOAD_TASKS", "Status code: ${error.networkResponse?.statusCode}")
+                Log.e("LOAD_TASKS", "Data: ${error.networkResponse?.data?.toString(Charsets.UTF_8)}")
+
                 Toast.makeText(this, "Failed to load tasks", Toast.LENGTH_SHORT).show()
             }
         )

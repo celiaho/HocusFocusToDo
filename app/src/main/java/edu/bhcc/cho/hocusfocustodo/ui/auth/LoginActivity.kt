@@ -105,8 +105,26 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("---JWT_USER_ID", "---TOKEN sub (userId) = ${JwtUtils.getUserId(token) ?: "null"}")
 
                     errorTextView.visibility = View.GONE
-                    startActivity(Intent(this, TaskOverviewActivity::class.java))
-                    finish()
+
+                    // ✅ NEW: Load documents and store the first doc ID
+                    apiService.getMyDocuments(
+                        onSuccess = { documents ->
+                            if (documents.length() > 0) {
+                                val documentId = documents.getJSONObject(0).getString("id")
+                                sessionManager.saveTaskDocumentId(documentId)
+
+                                startActivity(Intent(this, TaskOverviewActivity::class.java))
+                                finish()
+                            } else {
+                                errorTextView.text = "No documents found for this user."
+                                errorTextView.visibility = View.VISIBLE
+                            }
+                        },
+                        onError = {
+                            errorTextView.text = "Login succeeded, but could not fetch your documents."
+                            errorTextView.visibility = View.VISIBLE
+                        }
+                    )
                 },
                 onError = {
                     errorTextView.text = it

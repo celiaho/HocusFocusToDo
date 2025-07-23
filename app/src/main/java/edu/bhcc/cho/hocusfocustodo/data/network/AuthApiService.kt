@@ -4,12 +4,14 @@ import android.content.Context
 import android.util.Log
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import edu.bhcc.cho.hocusfocustodo.data.model.LoginRequest
 import edu.bhcc.cho.hocusfocustodo.data.model.SignupRequest
 import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 import edu.bhcc.cho.hocusfocustodo.utils.VolleySingleton
+import org.json.JSONArray
 import org.json.JSONObject
 
 class AuthApiService(private val context: Context) {
@@ -151,6 +153,41 @@ class AuthApiService(private val context: Context) {
 //                0, // no retries
 //                1f // backoff multiplier
 //            )
+        }
+
+        requestQueue.add(req)
+    }
+
+    fun getMyDocuments(
+        onSuccess: (JSONArray) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val url = "$baseUrl/documents"
+        val req = object : JsonObjectRequest(Method.GET, url, null,
+            { response ->
+                try {
+                    Log.d("AUTH_API", "Full document response: ${response.toString(2)}")
+
+                    val documentsArray = response.getJSONArray("data")
+                    Log.d("AUTH_API", "Documents fetched successfully: ${documentsArray.length()} items")
+                    onSuccess(documentsArray)
+                } catch (e: Exception) {
+                    Log.e("AUTH_API", "Failed to parse documents JSON: ${e.message}")
+                    onError("Failed to parse server response.")
+                }
+            },
+            { error ->
+                Log.e("AUTH_API", "Failed to fetch documents: ${error.message}")
+                Log.e("AUTH_API", "Status code: ${error.networkResponse?.statusCode}")
+                Log.e("AUTH_API", "Raw response: ${error.networkResponse?.data?.toString(Charsets.UTF_8)}")
+                onError(error.message ?: "Failed to fetch documents")
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = SessionManager(context).getToken()
+                Log.d("AUTH_API", "Using token in Authorization header: $token")
+                return mutableMapOf("Authorization" to "Bearer $token")
+            }
         }
 
         requestQueue.add(req)
