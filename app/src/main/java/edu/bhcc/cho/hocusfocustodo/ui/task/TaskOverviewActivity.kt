@@ -45,8 +45,7 @@ class TaskOverviewActivity : AppCompatActivity() {
     private lateinit var adapterQ3: TaskAdapter
     private lateinit var adapterQ4: TaskAdapter
 
-    private val taskApiService = TaskApiService(this)
-
+    private lateinit var taskApiService: TaskApiService
 
     private lateinit var sessionManager: SessionManager
     private var documentId: String? = null
@@ -58,6 +57,7 @@ class TaskOverviewActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
         documentId = sessionManager.getTaskDocumentId()
 
+        taskApiService = TaskApiService(this)
         if (documentId != null) {
             loadTasksFromServer(documentId!!)
         }
