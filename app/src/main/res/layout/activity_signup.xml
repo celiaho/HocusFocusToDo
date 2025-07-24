@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/off_white"
     android:overScrollMode="never"
     android:scrollbars="none"
-    android:id="@+id/scrollView">
+    android:id="@+id/scrollView"
+    tools:context="ui.auth.SignupActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <!-- Top vector image (adjustable based on translationY) -->
         <ImageView
@@ -33,7 +34,7 @@
             android:orientation="vertical"
             android:padding="24dp"
             android:translationY="-448dp"
-            android:background="@android:color/transparent">
+            android:background="@android:color/transparent" >
 
             <!-- Title -->
             <LinearLayout
@@ -222,8 +223,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create Account"
-                android:layout_marginTop="36dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"/>
 
             <!-- Already have account link -->
             <TextView
@@ -232,7 +233,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Already have an account? Log in"/>
+                android:text="Already have an account? Log in" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

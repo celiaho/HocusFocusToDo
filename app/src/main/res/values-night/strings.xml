@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="add_task_help_text">Add task and press enter</string>
+    <string name="app_name">Hocus Focus</string>
+    <string name="add_task_help_text">Add task &amp; press enter</string>
 </resources>

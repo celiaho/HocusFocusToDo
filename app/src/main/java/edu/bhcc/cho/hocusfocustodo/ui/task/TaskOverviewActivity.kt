@@ -1,13 +1,11 @@
 package edu.bhcc.cho.hocusfocustodo.ui.task
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +17,7 @@ import edu.bhcc.cho.hocusfocustodo.data.model.Task
 import edu.bhcc.cho.hocusfocustodo.data.network.TaskApiService
 import edu.bhcc.cho.hocusfocustodo.ui.auth.LoginActivity
 import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
-import java.util.*
+import java.util.UUID
 
 class TaskOverviewActivity : AppCompatActivity() {
 
@@ -154,7 +152,7 @@ class TaskOverviewActivity : AppCompatActivity() {
     }
 
     private fun hideKeyboard(view: android.view.View) {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 

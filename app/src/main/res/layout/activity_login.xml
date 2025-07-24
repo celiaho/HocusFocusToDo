@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/white"
+    android:background="@color/off_white"
     android:overScrollMode="never"
     android:scrollbars="none"
     android:id="@+id/scrollView">
@@ -142,16 +142,16 @@
             <!-- Log In button -->
             <Button
                 android:id="@+id/login_button"
+                style="@style/PrimaryButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="64dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/green"
-                android:fontFamily="@font/rubik_medium"
-                android:text="Log In"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
-
+                android:text="Log In" />
+<!--            android:backgroundTint="@color/green"-->
+<!--            android:fontFamily="@font/rubik_medium"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="18sp"-->
             <!-- Sign up link -->
             <TextView
                 android:id="@+id/login_signup_link"

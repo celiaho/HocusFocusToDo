@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/off_white"
     android:orientation="vertical"
     tools:context=".ui.task.TaskOverviewActivity">
 
     <!-- Commented out - not needed for Pixel 5 API 33 Emulator -->
     <!-- Top App Bar to prevent layout running into status bar (not needed for Pixel 5 API 33 Emulator) -->
-    <!--    <com.google.android.material.appbar.MaterialToolbar-->
-    <!--        android:id="@+id/top_toolbar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@color/dark_gray"-->
-    <!--        android:elevation="4dp" />-->
+<!--    <com.google.android.material.appbar.MaterialToolbar-->
+<!--        android:id="@+id/top_toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/dark_gray"-->
+<!--        android:elevation="4dp" />-->
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
@@ -318,9 +318,10 @@
                         android:layout_marginTop="8dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-        </LinearLayout> <!-- END PAGE CONTENT -->
 
+        </LinearLayout> <!-- END PAGE CONTENT -->
     </androidx.core.widget.NestedScrollView>
+
     <!-- Bottom Toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/bottom_toolbar"
@@ -350,6 +351,5 @@
             android:padding="0dp"
             android:src="@drawable/ic_logout"
             app:tint="@color/auth_green" />
-
     </com.google.android.material.appbar.MaterialToolbar>
 </LinearLayout>
