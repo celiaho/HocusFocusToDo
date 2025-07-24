@@ -268,6 +268,8 @@ class TaskOverviewActivity : AppCompatActivity() {
                     list.removeAt(index)
                     getAdapterForQuadrant(task.quadrant).notifyItemRemoved(index)
                 }
+
+                saveAllTasksToServer()
             },
             onError = { error ->
                 Toast.makeText(this, "Failed to delete task: ${error.message}", Toast.LENGTH_LONG).show()
