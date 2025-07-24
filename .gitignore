@@ -1,16 +1,36 @@
-# Compiled class file
+# === Java/Kotlin Compiled Class Files ===
 *.class
 
+# === Logs & Crash Reports ===
 # Log file
 *.log
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
 
+# === IDE & Project Metadata ===
 # BlueJ files
 *.ctxt
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+# Android Studio / IntelliJ (added 7/24/25 to simplify GitHub sharing)
+*.iml
+.idea/**
+!.idea/codeStyles/
+!.idea/codeStyles/Project.xml
+!.idea/runConfigurations
+!.idea/inspectionProfiles
 
-# Package Files #
+# === GRADLE & KOTLIN PLUGIN ===
+# Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
+.kotlin/
+# Gradle Plugin files (added 7/2/25 & 7/9/25 to simplify GitHub sharing)
+local.properties 
+.gradle/
+build/
+*.lock
+
+# === Package Archive Files ===
 *.jar
 *.war
 *.nar
@@ -18,16 +38,3 @@
 *.zip
 *.tar.gz
 *.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
-
-# Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
-.kotlin/
-
-# Gradle files (added 7/2/25 & 7/9/25 to simplify GitHub sharing)
-local.properties
-.gradle/
-build/
-*.lock
