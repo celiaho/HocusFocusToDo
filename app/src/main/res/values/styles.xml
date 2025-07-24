@@ -58,7 +58,6 @@
         <item name="boxStrokeColor">@color/off_white</item> <!-- Changed to off-white to hide extra underline when clicking editTexts / old comment: DEBUGGING-->
 
         <!-- Make the filled box background transparent -->
-        <item name="boxBackgroundColor">@android:color/holo_blue_bright</item> <!-- ??? This color is never used -->
         <item name="boxStrokeWidth">0dp</item> <!-- No surrounding box stroke -->
         <item name="boxStrokeWidthFocused">1dp</item> <!-- Underline thickness when focused -->
         <item name="fontFamily">@font/rubik_regular</item>
@@ -70,8 +69,6 @@
 
     <!-- This overlay will try to ensure underline properties are set for FilledBox -->
     <style name="ThemeOverlay.App.TextInputLayout.Underline" parent="">
-        <item name="colorPrimary">@android:color/holo_red_dark</item> <!-- ??? Or your desired focused color -->
-        <item name="colorOnSurface">@android:color/holo_purple</item> <!-- ??? Or your desired normal underline color -->
     </style>
 
 
