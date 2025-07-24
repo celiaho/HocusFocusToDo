@@ -123,22 +123,27 @@ class PasswordResetActivity : AppCompatActivity() {
     private fun setupKeyboardAutoScroll() {
         val rootView = findViewById<View>(android.R.id.content)
         rootView.viewTreeObserver.addOnGlobalLayoutListener {
-            val r = Rect()
-            rootView.getWindowVisibleDisplayFrame(r)
+            val rect = Rect()
+            rootView.getWindowVisibleDisplayFrame(rect)
             val screenHeight = rootView.rootView.height
-            val keypadHeight = screenHeight - r.bottom
+            val keypadHeight = screenHeight - rect.bottom
 
             if (keypadHeight > screenHeight * 0.15) {
-                currentFocus?.let {
+                // Keyboard is open
+                val focused = currentFocus
+                focused?.let { view ->
+                    val scrollY = view.top - 100
                     scrollView.post {
-                        scrollView.scrollTo(0, it.bottom)
+                        scrollView.smoothScrollTo(0, scrollY.coerceAtLeast(0))
                     }
                 }
             } else {
+                // Keyboard is closed
                 scrollView.post {
-                    scrollView.scrollTo(0, 0)
+                    scrollView.smoothScrollTo(0, 0)
                 }
             }
         }
     }
+
 }

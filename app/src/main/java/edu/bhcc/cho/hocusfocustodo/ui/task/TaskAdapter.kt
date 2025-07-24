@@ -1,5 +1,6 @@
 package edu.bhcc.cho.hocusfocustodo.ui.task
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,25 +31,39 @@ class TaskAdapter(
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
 
+        // Set task text
         holder.text.text = task.text
-        holder.checkBox.isChecked = task.isCompleted
-        holder.text.alpha = if (task.isCompleted) 0.5f else 1f
 
+        // Apply strikethrough and alpha for completed tasks
+        if (task.isCompleted) {
+            holder.text.paintFlags = holder.text.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.text.alpha = 0.5f
+        } else {
+            holder.text.paintFlags = holder.text.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            holder.text.alpha = 1f
+        }
+
+        // Set due date
         holder.dueDate.setText(task.dueDate)
         holder.dueDate.visibility = if (task.dueDate != null) View.VISIBLE else View.GONE
 
+        // Remove any existing listener before setting the checked state
         holder.checkBox.setOnCheckedChangeListener(null)
+        holder.checkBox.isChecked = task.isCompleted
+
+        // Set new listener / Defer toggle callback to avoid RecyclerView layout crash
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            task.isCompleted = isChecked
-            onToggleComplete(task)
-            notifyItemChanged(position)
+            holder.checkBox.post {
+                task.isCompleted = isChecked
+                onToggleComplete(task.copy(isCompleted = isChecked)) // copy to avoid mutating here
+            }
         }
 
+        // Defer delete callback as well (and remove local notifyItemRemoved)
         holder.deleteButton.setOnClickListener {
-            onDelete(task)
-            tasks.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, tasks.size)
+            holder.deleteButton.post {
+                onDelete(task)
+            }
         }
     }
 

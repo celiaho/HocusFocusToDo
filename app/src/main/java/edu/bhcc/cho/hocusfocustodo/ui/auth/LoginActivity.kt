@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        scrollView = findViewById(R.id.scrollView) // Must match the ID in XML
+        scrollView = findViewById(R.id.scrollView)
         scrollView.setOnTouchListener { _, _ -> true } // Disable manual scrolling
 
         emailEditText = findViewById(R.id.login_email)
@@ -105,8 +105,26 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("---JWT_USER_ID", "---TOKEN sub (userId) = ${JwtUtils.getUserId(token) ?: "null"}")
 
                     errorTextView.visibility = View.GONE
-                    startActivity(Intent(this, TaskOverviewActivity::class.java))
-                    finish()
+
+                    // ✅ NEW: Load documents and store the first doc ID
+                    apiService.getMyDocuments(
+                        onSuccess = { documents ->
+                            if (documents.length() > 0) {
+                                val documentId = documents.getJSONObject(0).getString("id")
+                                sessionManager.saveTaskDocumentId(documentId)
+
+                                startActivity(Intent(this, TaskOverviewActivity::class.java))
+                                finish()
+                            } else {
+                                errorTextView.text = "No documents found for this user."
+                                errorTextView.visibility = View.VISIBLE
+                            }
+                        },
+                        onError = {
+                            errorTextView.text = "Login succeeded, but could not fetch your documents."
+                            errorTextView.visibility = View.VISIBLE
+                        }
+                    )
                 },
                 onError = {
                     errorTextView.text = it
@@ -130,26 +148,31 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, SignupActivity::class.java))
         }
 
-        // 🧠 Keyboard scroll logic
+        // Setup proper keyboard scroll
+        setupKeyboardAutoScroll()
+    }
+
+    private fun setupKeyboardAutoScroll() {
         val rootView = findViewById<View>(android.R.id.content)
         rootView.viewTreeObserver.addOnGlobalLayoutListener {
-            val r = Rect()
-            rootView.getWindowVisibleDisplayFrame(r)
+            val rect = Rect()
+            rootView.getWindowVisibleDisplayFrame(rect)
             val screenHeight = rootView.rootView.height
-            val keypadHeight = screenHeight - r.bottom
+            val keypadHeight = screenHeight - rect.bottom
 
             if (keypadHeight > screenHeight * 0.15) {
-                // keyboard is open → scroll to input
-                val focusedView = currentFocus
-                focusedView?.let {
+                // Keyboard is open
+                val focused = currentFocus
+                focused?.let { view ->
+                    val scrollY = view.top - 100
                     scrollView.post {
-                        scrollView.scrollTo(0, it.bottom)
+                        scrollView.smoothScrollTo(0, scrollY.coerceAtLeast(0))
                     }
                 }
             } else {
-                // keyboard closed → scroll to top
+                // Keyboard is closed
                 scrollView.post {
-                    scrollView.scrollTo(0, 0)
+                    scrollView.smoothScrollTo(0, 0)
                 }
             }
         }

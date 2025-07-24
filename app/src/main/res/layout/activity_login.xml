@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/white"
+    android:background="@color/off_white"
     android:overScrollMode="never"
     android:scrollbars="none"
     android:id="@+id/scrollView">
@@ -29,19 +29,19 @@
 
         <!-- Login form (no translationY!) -->
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
             android:padding="24dp"
-            android:translationY="-284dp"
-            android:background="@android:color/transparent">
+            android:translationY="-284dp">
 
             <!-- Screen title -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/ScreenTitle"
@@ -52,19 +52,19 @@
                 <View
                     android:layout_width="70dp"
                     android:layout_height="3dp"
-                    android:background="@color/auth_green"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="2dp"
+                    android:background="@color/auth_green" />
             </LinearLayout>
 
             <!-- Error message -->
             <TextView
-                style="@style/ErrorText"
                 android:id="@+id/login_error"
+                style="@style/ErrorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Error text here"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
+                android:text="Error text here"
                 android:visibility="gone" />
 
             <!-- Email label -->
@@ -72,8 +72,8 @@
                 style="@style/InputLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
-                android:layout_marginTop="36dp" />
+                android:layout_marginTop="36dp"
+                android:text="Email" />
 
             <!-- Email input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -87,14 +87,14 @@
                     android:id="@+id/login_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textAppearance="@style/AppInputTextAppearance"
                     android:drawableStart="@drawable/ic_material_email"
-                    android:drawableTint="@color/light_gray"
                     android:drawablePadding="8dp"
+                    android:drawableTint="@color/light_gray"
                     android:hint="Enter your email"
+                    android:inputType="textEmailAddress"
                     android:paddingTop="16dp"
-                    android:paddingBottom="12dp" />
+                    android:paddingBottom="12dp"
+                    android:textAppearance="@style/AppInputTextAppearance" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password label -->
@@ -102,8 +102,8 @@
                 style="@style/InputLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:text="Password" />
 
             <!-- Password input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -119,14 +119,14 @@
                     android:id="@+id/login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textAppearance="@style/AppInputTextAppearance"
                     android:drawableStart="@drawable/ic_material_lock"
-                    android:drawableTint="@color/light_gray"
                     android:drawablePadding="8dp"
+                    android:drawableTint="@color/light_gray"
                     android:hint="Enter your password"
+                    android:inputType="textPassword"
                     android:paddingTop="16dp"
-                    android:paddingBottom="12dp" />
+                    android:paddingBottom="12dp"
+                    android:textAppearance="@style/AppInputTextAppearance" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Forgot Password link -->
@@ -135,32 +135,32 @@
                 style="@style/AuthLinkText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forgot password?"
+                android:layout_gravity="end"
                 android:layout_marginTop="4dp"
-                android:layout_gravity="end" />
+                android:text="Forgot password?" />
 
             <!-- Log In button -->
             <Button
                 android:id="@+id/login_button"
+                style="@style/PrimaryButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Log In"
-                android:textSize="18sp"
-                android:fontFamily="@font/rubik_medium"
-                android:backgroundTint="@color/green"
-                android:textColor="@android:color/white"
                 android:layout_marginTop="64dp"
-                android:layout_marginBottom="16dp" />
-
+                android:layout_marginBottom="16dp"
+                android:text="Log In" />
+<!--            android:backgroundTint="@color/green"-->
+<!--            android:fontFamily="@font/rubik_medium"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="18sp"-->
             <!-- Sign up link -->
             <TextView
                 android:id="@+id/login_signup_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="14sp"
                 android:fontFamily="@font/rubik_regular"
-                android:text="Don’t have an account? Sign up" />
+                android:text="Don’t have an account? Sign up"
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

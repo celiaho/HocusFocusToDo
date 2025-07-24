@@ -1,213 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/off_white"
+    android:orientation="vertical"
     tools:context=".ui.task.TaskOverviewActivity">
 
-    <!-- Scrollable matrix -->
+    <!-- Commented out - not needed for Pixel 5 API 33 Emulator -->
+    <!-- Top App Bar to prevent layout running into status bar (not needed for Pixel 5 API 33 Emulator) -->
+<!--    <com.google.android.material.appbar.MaterialToolbar-->
+<!--        android:id="@+id/top_toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/dark_gray"-->
+<!--        android:elevation="4dp" />-->
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
+        <!-- PAGE CONTENT -->
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- Quadrant I -->
+            <!-- QUADRANT I - DO -->
+            <!-- Quadrant title bar -->
             <LinearLayout
-                android:orientation="vertical"
+                style="@style/QuadrantTitleBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:background="@color/green"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
+                <!-- Left-aligned quadrant title -->
                 <TextView
-
                     style="@style/QuadrantTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
-                    android:text="I. URGENT &amp; IMPORTANT - DO NOW"
-                    android:padding="8dp" />
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="I. Do"
+                    android:textColor="@color/white" />
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
+                <!-- Right-aligned urgency/importance label -->
+                <TextView
+                    style="@style/UrgencyImportanceLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:gravity="end"
+                    android:text="Urgent &amp; Important"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
-
-            <!-- Quadrant II -->
-
-            <LinearLayout
-                android:orientation="vertical"
+            <!-- Task section -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp">
 
-                <TextView
-                    style="@style/QuadrantTitle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/blue"
-                    android:textColor="@color/white"
-                    android:text="II. URGENT &amp; NOT IMPORTANT - DECIDE WHEN TO SCHEDULE"
-                    android:padding="8dp" />
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q2"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
+                        app:hintEnabled="false">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/add_task_help_text"
+                            android:inputType="textAutoCorrect|textCapSentences"
+                            android:minHeight="48dp"
+                            android:textAppearance="@style/AppInputTextAppearance" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    <!-- Display Q1 task list -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Quadrant III -->
+            <!-- QUADRANT II - (DECIDE WHEN TO) SCHEDULE -->
+            <!-- Quadrant title bar -->
             <LinearLayout
-                android:orientation="vertical"
+                style="@style/QuadrantTitleBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:background="@color/blue"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
+                <!-- Left-aligned quadrant title -->
                 <TextView
                     style="@style/QuadrantTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/orange"
-                    android:textColor="@color/white"
-                    android:text="III. NOT URGENT &amp; IMPORTANT - DELEGATE"
-                    android:padding="8dp" />
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="II. Schedule"
+                    android:textColor="@color/white" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
+                <!-- Right-aligned urgency/importance label -->
+                <TextView
+                    style="@style/UrgencyImportanceLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:gravity="end"
+                    android:text="Urgent &amp; Not Important"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
-            <!-- Quadrant IV -->
-
-            <LinearLayout
-                android:orientation="vertical"
+            <!-- Task section -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp">
 
-                <TextView
-                    style="@style/QuadrantTitle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/red"
-                    android:textColor="@color/white"
-                    android:text="IV. NOT URGENT &amp; NOT IMPORTANT - DELETE"
-                    android:padding="8dp" />
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Add a task">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_q4"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/AppInputTextAppearance" />
+                        app:hintEnabled="false">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/add_task_help_text"
+                            android:inputType="textAutoCorrect|textCapSentences"
+                            android:minHeight="48dp"
+                            android:textAppearance="@style/AppInputTextAppearance" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_q4"
-                    android:layout_width="match_parent"
+                    <!-- Display Q2 task list -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- QUADRANT III - DELEGATE -->
+            <!-- Quadrant title bar -->
+            <LinearLayout
+                style="@style/QuadrantTitleBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/orange"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- Left-aligned quadrant title -->
+                <TextView
+                    style="@style/QuadrantTitle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="III. Delegate"
+                    android:textColor="@color/white" />
+
+                <!-- Right-aligned urgency/importance label -->
+                <TextView
+                    style="@style/UrgencyImportanceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="Not Urgent &amp; Important"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
+            <!-- Task section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp">
 
-    <!-- Bottom nav -->
-    <LinearLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/add_task_help_text"
+                            android:inputType="textAutoCorrect|textCapSentences"
+                            android:minHeight="48dp"
+                            android:textAppearance="@style/AppInputTextAppearance" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Display Q3 task list -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- QUADRANT IV - DELETE -->
+            <!-- Quadrant title bar -->
+            <LinearLayout
+                style="@style/QuadrantTitleBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- Left-aligned quadrant title -->
+                <TextView
+                    style="@style/QuadrantTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="IV. Delete"
+                    android:textColor="@color/white" />
+
+                <!-- Right-aligned urgency/importance label -->
+                <TextView
+                    style="@style/UrgencyImportanceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="Not Urgent &amp; Not Important"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- Task section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_q4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/add_task_help_text"
+                            android:inputType="textAutoCorrect|textCapSentences"
+                            android:minHeight="48dp"
+                            android:textAppearance="@style/AppInputTextAppearance" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Display Q4 task list -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_q4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout> <!-- END PAGE CONTENT -->
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/bottom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:background="@color/eisen_canvas"
-        android:paddingHorizontal="16dp"
-        android:gravity="center_vertical"
+        android:background="@color/dark_gray"
         android:elevation="4dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+        app:contentInsetEnd="16dp"
+        app:contentInsetStart="16dp">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/app_name" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_hocus_focus_logo" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
+        <ImageButton
             android:id="@+id/button_logout"
-            style="@style/PrimaryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log Out" />
-    </LinearLayout>
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Log out button"
+            android:padding="0dp"
+            android:src="@drawable/ic_logout"
+            app:tint="@color/auth_green" />
+    </com.google.android.material.appbar.MaterialToolbar>
 </LinearLayout>
