@@ -11,14 +11,20 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import edu.bhcc.cho.hocusfocustodo.R
+import edu.bhcc.cho.hocusfocustodo.data.model.LoginRequest
 import edu.bhcc.cho.hocusfocustodo.data.model.SignupRequest
 import edu.bhcc.cho.hocusfocustodo.data.network.AuthApiService
+import edu.bhcc.cho.hocusfocustodo.data.network.TaskApiService
+import edu.bhcc.cho.hocusfocustodo.ui.task.TaskOverviewActivity
+import edu.bhcc.cho.hocusfocustodo.utils.JwtUtils
+import edu.bhcc.cho.hocusfocustodo.utils.SessionManager
 
 class SignupActivity : AppCompatActivity() {
 
@@ -181,8 +187,47 @@ class SignupActivity : AppCompatActivity() {
         apiService.signupUser(
             request,
             onSuccess = {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+
+                val loginRequest = LoginRequest(email, password)
+
+                apiService.loginUser(
+                    request = loginRequest,
+                    onSuccess = { token ->
+                        val sessionManager = SessionManager(this)
+                        sessionManager.saveSession(
+                            token,
+                            JwtUtils.getUserId(token) ?: "",
+                            (JwtUtils.getExpirationTime(token) ?: 0) * 1000
+                        )
+
+                       
+                        val taskApiService = TaskApiService(this)
+                        taskApiService.createNewDocument(
+                            taskMap = mapOf( // empty quadrants
+                                "q1_u_i" to emptyList(),
+                                "q2_nu_i" to emptyList(),
+                                "q3_u_ni" to emptyList(),
+                                "q4_nu_ni" to emptyList()
+                            ),
+                            onSuccess = { documentId ->
+                                sessionManager.saveTaskDocumentId(documentId)
+                                startActivity(Intent(this, TaskOverviewActivity::class.java))
+                                finish()
+                            },
+                            onError = {
+                                // If document creation fails, show message but allow login
+                                Toast.makeText(this, "Account created, but couldn't create task list. Please try logging in.", Toast.LENGTH_LONG).show()
+                                startActivity(Intent(this, LoginActivity::class.java))
+                                finish()
+                            }
+                        )
+                    },
+                    onError = {
+                        Toast.makeText(this, "Signup succeeded but login failed. Try again.", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+                    }
+                )
             },
             onError = {
                 emailLayout.error = it
