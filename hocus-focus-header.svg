@@ -1,0 +1,62 @@
+<svg width="1300" height="360" viewBox="0 0 1300 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Hocus Focus – Android To-Do App</title>
+  <desc id="desc">Gradient banner with centered left text block, tagline, description, tech stack, and balanced Eisenhower Matrix quadrants.</desc>
+
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F766E"></stop>
+      <stop offset="50%" stop-color="#2563EB"></stop>
+      <stop offset="100%" stop-color="#7C3AED"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1300" height="360" rx="28" fill="url(#bgGradient)"></rect>
+
+  <!-- QUADRANTS -->
+  <!-- Group width = 460px; margins = 80px on both sides -->
+  <g transform="translate(760,80)">
+    <!-- Q1 -->
+    <rect x="0" y="0" width="220" height="100" rx="14" fill="#8CD47E" opacity="0.98"></rect>
+    <text x="20" y="38" font-family="system-ui" font-size="25" font-weight="700" fill="#FFFFFF">I. Do</text>
+    <text x="20" y="68" font-family="system-ui" font-size="16" fill="#F0FFF0">Urgent &amp; Important</text>
+
+    <!-- Q2 -->
+    <rect x="240" y="0" width="220" height="100" rx="14" fill="#4E8BFF" opacity="0.98"></rect>
+    <text x="258" y="38" font-family="system-ui" font-size="25" font-weight="700" fill="#FFFFFF">II. Schedule</text>
+    <text x="258" y="68" font-family="system-ui" font-size="16" fill="#EBF5FF">Not Urgent, Important</text>
+
+    <!-- Q3 -->
+    <rect x="0" y="120" width="220" height="100" rx="14" fill="#F4A221" opacity="0.98"></rect>
+    <text x="20" y="158" font-family="system-ui" font-size="25" font-weight="700" fill="#1F2937">III. Delegate</text>
+    <text x="20" y="188" font-family="system-ui" font-size="16" fill="#374151">Urgent, Not Important</text>
+
+    <!-- Q4 -->
+    <rect x="240" y="120" width="220" height="100" rx="14" fill="#E26A6A" opacity="0.98"></rect>
+    <text x="258" y="158" font-family="system-ui" font-size="25" font-weight="700" fill="#FFFFFF">IV. Delete</text>
+    <text x="258" y="188" font-family="system-ui" font-size="16" fill="#FEE2E2">Not Urgent, Not Important</text>
+  </g>
+
+  <!-- LEFT TEXT BLOCK (vertically centered) -->
+  <text x="80" y="128" font-family="system-ui" font-size="52" font-weight="800" fill="#F9FAFB">
+    Hocus Focus
+  </text>
+
+  <text x="82" y="176" font-family="system-ui" font-size="26" font-style="italic" fill="#E5E7EB">
+    From frantic brain to focused days
+  </text>
+
+  <text x="82" y="224" font-family="system-ui" font-size="26" fill="#F9FAFB">
+    A to-do app for neurodivergent-friendly productivity
+  </text>
+
+  <!-- TECH STACK (pill) -->
+  <!-- Bottom of pill = 256 + 34 = 290 → this is 10px above quadrants' 300px bottom -->
+  <rect x="80" y="256" width="460" height="34" rx="17" fill="rgba(15,23,42,0.6)"></rect>
+
+  <!-- Center tech text vertically & horizontally -->
+  <text x="310" y="278" font-family="system-ui" font-size="17" fill="#E5E7EB" text-anchor="middle">
+    Kotlin · Android · Volley · REST API · JWT Authentication
+  </text>
+
+</svg>
